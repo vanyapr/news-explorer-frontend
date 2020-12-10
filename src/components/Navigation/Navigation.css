@@ -1,3 +1,19 @@
+.navigation__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+
+.navigation__list-item {
+  /*!* Инлайн поведение для блоков*!*/
+  /*display: inline;*/
+  margin: 0;
+  padding: 0;
+}
+
 .navigation__link {
   font-family:  'Roboto', sans-serif;
   text-decoration: none;
@@ -65,3 +81,8 @@
   vertical-align: middle;
   margin-left: 12px;
 }
+
+.navigation__button-icon-logout_theme_contrast {
+  background-image: url('../../images/logout-icon-contrast.svg');
+}
+

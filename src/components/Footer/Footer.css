@@ -1,0 +1,67 @@
+.footer {
+  height: 80px;
+  max-width: 1118px;
+  padding: 0 25px;
+  border: 1px solid red;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.footer__copyright {
+  font-family:  'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--gray-color);
+}
+
+.footer__links {
+  display: flex;
+  gap: 58px;
+}
+
+.footer__links-list {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 38px;
+}
+
+.footer__links-list_type_socials {
+  gap: 28px;
+}
+
+.footer__link {
+  font-family:  'Roboto', sans-serif;
+  color: var(--main-color);
+  text-decoration: none;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.footer__link-social {
+  text-indent: -9000px;
+  width: 20px;
+  height: 20px;
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.footer__link_socials_type_github {
+  background-image: url('../../images/github-icon.svg');
+}
+
+.footer__link_socials_type_facebook {
+  background-image: url('../../images/facebook-icon.svg');
+
+}
