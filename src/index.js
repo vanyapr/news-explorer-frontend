@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './vendor/normalize.css'; // Подключили normalize.css
+import { BrowserRouter } from 'react-router-dom';
+import './index.css'; // Подключили index.css
 import App from './components/App/App'; // Компонент приложения
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root'),
 );
