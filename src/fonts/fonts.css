@@ -33,3 +33,12 @@
   src: url("./Roboto_Slab/RobotoSlab-Bold.woff2") format("woff2"),
   url("./Roboto_Slab/RobotoSlab-Bold.woff") format("woff");
 }
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style:  normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./Source_Sans/sourcesanspro-regular-webfont.woff2") format("woff2"),
+  url("./Source_Sans/sourcesanspro-regular-webfont.woff") format("woff");
+}

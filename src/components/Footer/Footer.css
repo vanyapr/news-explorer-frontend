@@ -1,6 +1,10 @@
 .footer {
+  background: #fff;
+}
+
+.footer__container {
   height: 80px;
-  max-width: 1118px;
+  max-width: 1282px;
   padding: 0 25px;
   margin: 0 auto;
   display: flex;

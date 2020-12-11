@@ -1,0 +1,115 @@
+.card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding:  0 24px 24px;
+  position: relative;
+  border-radius: 16px;
+  z-index: 1;
+  height: 576px;
+}
+
+/* В макете эту тень невозможно извлечь никак, сделал на глаз */
+.card:hover {
+  box-shadow: 0 24px 24px -18px rgba(8, 29, 45, 0.1);;
+}
+
+.card__image {
+  order: -2;
+  margin: 0 -24px;
+  border-radius: 16px 16px 0 0;
+}
+
+
+.card__date {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  margin: 20px 0 0;
+  order: -1;
+  color: #B6BCBF;
+}
+
+.card__text {
+  height: 205px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: initial;
+  /*
+  Вообще не понятно, как это сделать без вендорных префиксов:
+  У нас высота одного элемента зависит от высоты другого, единственный способ - так
+  */
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+}
+
+.card__name {
+  font-family: 'Roboto Slab', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 30px;
+  color: var(--main-color);
+  margin: 12px 0 0;
+}
+
+.card__link {
+  color: var(--main-color);
+  text-decoration: none;
+}
+
+.card__description {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--main-color);
+  margin: 16px 0 0;
+}
+
+.card__description:after {
+  content: "\A";
+  white-space: pre;
+}
+
+.card__source {
+  font-family: 'Roboto Slab', serif;
+  font-style: normal;
+  color: #B6BCBF;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  margin: 0;
+}
+
+.card__favorites {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  text-indent: -9000px;
+  cursor: pointer;
+  background-image: url("../../images/bookmark-icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.card__favorites:hover {
+  background-image: url("../../images/bookmark-icon-hover.svg");
+}
+
+.card__favorites_state_active {
+  background-image: url("../../images/bookmark-icon-active.svg");
+}

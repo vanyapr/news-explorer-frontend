@@ -1,0 +1,35 @@
+.preloader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.preloader__spinner {
+  text-indent: -9000px;
+  width: 74px;
+  height: 74px;
+  animation: rotation linear 1s infinite;
+  /* Корректно экспортируется только png*/
+  background-image: url("../../images/preloader.png") ;
+}
+
+.preloader__text {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #B6BCBF;
+  margin: 24px 0 0;
+}

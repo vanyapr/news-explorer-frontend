@@ -15,7 +15,7 @@
 .header__container {
   margin: 0 auto;
   /* Ширина в макете 1068px + включу отступы слева и справа по 25 пикселей*/
-  max-width: 1118px;
+  max-width: 1282px;
   padding: 0 25px;
   height: calc(80px - 3px - 1px);
   box-sizing: border-box;
