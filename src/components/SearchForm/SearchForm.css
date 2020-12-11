@@ -1,0 +1,89 @@
+.search-form {
+  background-image: url('../../images/georgia-de-lotz--UsJoNxLaNo-unsplash.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media only screen and (min-resolution: 192dpi),
+only screen and (min-resolution: 2dppx) {
+  .search-form {
+    background-image: url('../../images/georgia-de-lotz--UsJoNxLaNo-unsplash@2x.png');
+  }
+}
+
+.search-form__container {
+  max-width: 1118px;
+  padding: 80px 25px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.search-form__heading {
+  margin: 80px 0 0;
+  padding: 0;
+  font-family: 'Roboto Slab', serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 60px;
+  line-height: 64px;
+  color: var(--contrast-color);
+}
+
+.search-form__description {
+  font-family:  'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--contrast-color);
+  max-width: 545px;
+  margin: 32px 0 0;
+}
+
+.search-form__form {
+  margin: 64px 0 0;
+  width: 608px;
+  position: relative;
+}
+
+.search-form__input {
+  background: #FFFFFF;
+  font-family:  'Roboto', sans-serif;
+  padding: 21px 208px 21px 24px;
+  border: 1px solid #D1D2D6;
+  box-sizing: border-box;
+  border-radius: 100px;
+  width: 100%;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #B6BCBF;
+}
+
+.search-form__button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: #2F71E5;
+  box-shadow: 0 5px 15px rgba(14, 26, 57, 0.2);
+  border-radius: 100px;
+  font-family:  'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  /*padding: 18.14px 53px 21.86px 54px;*/
+  padding: 20px 53px 22px 54px;
+  border: none;
+  color: var(--contrast-color);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.search-form__button:hover {
+  background-color: #347EFF;
+}
+
+.search-form__button:focus {
+  background-color: #2A65CC;
+}
