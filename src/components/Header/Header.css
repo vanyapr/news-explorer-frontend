@@ -6,10 +6,12 @@
   position: absolute;
   left: 0;
   right: 0;
+  background: #fff;
 }
 
 .header_theme_contrast {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
 }
 
 .header__container {

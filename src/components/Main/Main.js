@@ -9,7 +9,7 @@ class Main extends React.Component {
     return (
       <main className='main'>
         <SearchForm />
-        <SearchResult />
+        <SearchResult/>
         <About />
       </main>
     );

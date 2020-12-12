@@ -21,7 +21,7 @@
   height: 74px;
   animation: rotation linear 1s infinite;
   /* Корректно экспортируется только png*/
-  background-image: url("../../images/preloader.png") ;
+  background-image: url("../../images/preloader.png");
 }
 
 .preloader__text {

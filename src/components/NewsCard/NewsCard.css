@@ -90,26 +90,26 @@
   margin: 0;
 }
 
-.card__favorites {
+.card__badge {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
   position: absolute;
   top: 24px;
-  right: 24px;
+  left: 24px;
+  padding: 0 16px;
+  height: 40px;
+  box-sizing: border-box;
   background: #FFFFFF;
   border-radius: 8px;
-  width: 40px;
-  height: 40px;
-  border: none;
-  text-indent: -9000px;
-  cursor: pointer;
-  background-image: url("../../images/bookmark-icon.svg");
-  background-repeat: no-repeat;
-  background-position: center;
+  display: flex;
+  align-items: center;
+  margin: 0;
 }
 
-.card__favorites:hover {
-  background-image: url("../../images/bookmark-icon-hover.svg");
-}
-
-.card__favorites_state_active {
-  background-image: url("../../images/bookmark-icon-active.svg");
+.card__badge_type_delete {
+  font-size: 12px;
+  line-height: 14px;
 }

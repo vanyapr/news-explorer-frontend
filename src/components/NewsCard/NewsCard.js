@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Компоненты для роутинга и редиректа
+import NewsCardButton from '../NewsCardButton/NewsCardButton';
 
 import './NewsCard.css';
 
@@ -16,7 +17,8 @@ class NewsCard extends React.Component {
         </div>
         <p className="card__source">Лента.ру</p>
         <p className="card__date"><time className="date_range small" dateTime="2019-2-08 00:00">2 августа, 2019</time></p>
-        <button className="card__favorites">Добавить в избранное</button>
+        < NewsCardButton buttonType={this.props.buttonType} tooltipText={this.props.tooltipText}/>
+        { this.props.showBadge && <p className="card__badge">Флюгегехаймер</p> }
       </section>
     );
   }
