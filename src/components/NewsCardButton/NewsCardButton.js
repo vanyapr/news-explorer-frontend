@@ -25,7 +25,6 @@ class NewsCardButton extends React.Component {
     return (
       <>
         <button onClick={this.handleButtonPress} onMouseEnter={this.toggleTooltip} onMouseLeave={this.toggleTooltip} className={`card__button card__button_type_${this.props.buttonType}`}>Добавить в избранное</button>
-        {/*<div className={this.state.isTooltipVisible ? 'card__tooltip card__tooltip_state_visible' : 'card__tooltip'}>{this.props.tooltipText}</div>*/}
         <div className={`card__tooltip card__tooltip_type_${this.props.buttonType} ${this.state.isTooltipVisible && 'card__tooltip_state_visible'} `}>{this.props.tooltipText}</div>
       </>
     );

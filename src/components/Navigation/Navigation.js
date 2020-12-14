@@ -3,6 +3,10 @@ import './Navigation.css';
 import { NavLink, Switch, Route } from 'react-router-dom';
 
 class Navigation extends React.Component {
+  // handleLoginClick = () => {
+  //   this.props.openLoginPopup();
+  // }
+
   render() {
     return (
       <nav className='navigation'>
@@ -14,7 +18,7 @@ class Navigation extends React.Component {
             <NavLink to='/saved-news' className={`navigation__link ${this.props.theme ? `navigation__link_${this.props.theme}` : ''}`}>Сохранённые статьи</NavLink>
           </li>
           <li className="navigation__list-item">
-            <button className={`navigation__button ${this.props.theme ? `navigation__button_${this.props.theme}` : ''}`}>
+            <button onClick={this.props.openLoginPopUp} className={`navigation__button ${this.props.theme ? `navigation__button_${this.props.theme}` : ''}`}>
               Юзернейм
               <i className={`navigation__button-icon-logout ${this.props.theme ? `navigation__button-icon-logout_${this.props.theme}` : ''}`}>Выйти</i>
             </button>
