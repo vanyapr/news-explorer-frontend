@@ -60,3 +60,11 @@
 .card__tooltip_state_visible {
   display: flex;
 }
+
+@media screen and (max-width: 1024px) {
+  .card__tooltip {
+    top: 16px;
+    right: 60px;
+  }
+}
+
