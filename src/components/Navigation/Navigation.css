@@ -32,7 +32,7 @@
 
 
 /* В макете отступы отличаются, решу вопрос так*/
-.navigation__link:last-of-type {
+.navigation__link {
   margin-right: 32px;
 }
 
@@ -90,6 +90,7 @@
 @media screen and (max-width: 768px) {
   .navigation__link {
     font-size: 16px;
+    margin-right: 16px;
   }
 
   .navigation__link.active:after {

@@ -9,6 +9,8 @@
   z-index: 1;
   max-height: 576px;
   min-height: 420px;
+  /* На случай, если вендорные префиксы не поддерживаются*/
+  overflow: hidden;
 }
 
 /* В макете эту тень невозможно извлечь никак, сделал на глаз */
@@ -25,6 +27,7 @@
 .card__image {
   border-radius: 16px 16px 0 0;
   max-width: 100%;
+  width: 100%;
 }
 
 

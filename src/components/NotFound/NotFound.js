@@ -9,7 +9,7 @@ class NotFound extends React.Component {
         <h2 className="not-found__heading">Ничего не найдено</h2>
         <p className="not-found__description">
           К сожалению по вашему запросу
-          ничего не найдено.
+          ничего не&nbsp;найдено.
         </p>
       </div>
     );

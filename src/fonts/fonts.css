@@ -12,8 +12,7 @@
   font-style:  normal;
   font-weight: 500;
   font-display: swap;
-  src: url("./Roboto/roboto-medium-webfont.woff2") format("woff2"),
-       url("./Roboto/roboto-medium-webfont.woff") format("woff");
+  src: url("./Roboto/roboto-medium.woff") format("woff");
 }
 
 @font-face {

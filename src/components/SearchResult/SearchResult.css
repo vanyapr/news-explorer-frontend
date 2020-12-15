@@ -53,3 +53,32 @@
   background: #E6E8EB;
   color: #B6BCBF;
 }
+
+@media screen and (max-width: 768px) {
+  .search-result {
+    padding: 40px 40px;
+  }
+
+  .search-result__cards {
+    margin-top: 32px;
+  }
+
+  .search-result__heading {
+    font-size: 30px;
+    line-height: 34px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .search-result {
+    padding: 32px 16px;
+  }
+
+  .search-result__cards {
+    margin-top: 24px;
+  }
+
+  .search-result__button-container {
+    margin-top: 15px;
+  }
+}

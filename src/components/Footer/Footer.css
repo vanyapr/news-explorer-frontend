@@ -20,6 +20,7 @@
   font-size: 16px;
   line-height: 22px;
   color: var(--gray-color);
+  margin: 0;
 }
 
 .footer__links {
@@ -66,5 +67,70 @@
 
 .footer__link_socials_type_facebook {
   background-image: url('../../images/facebook-icon.svg');
+}
 
+@media screen and (max-width: 768px) {
+  .footer__container {
+    padding: 0 40px;
+  }
+
+  .footer__links-list {
+    gap: 18px;
+  }
+
+  .footer__links {
+    gap: 35px;
+  }
+
+  .footer__links-list_type_socials {
+    gap: 27px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .footer__container {
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .footer__links {
+    order: -1;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .footer__container {
+    /*padding: 0 16px;*/
+    gap: 20px;
+    height: auto;
+    padding: 22px 16px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .footer__container {
+    gap: 38px;
+  }
+
+  .footer__links {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .footer__links-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .footer__links-list_type_socials {
+    flex-direction: row;
+    align-items: flex-start;
+    /*В макете есть отступ, реализую его*/
+    margin-top: -5px;
+    gap: 28px;
+  }
 }

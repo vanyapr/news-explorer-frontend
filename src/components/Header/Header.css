@@ -46,6 +46,21 @@
   }
 
   .header__container {
+    padding: 0 40px;
+  }
+
+  .header__container {
     height: calc(66px - 3px - 1px);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .header {
+    padding: 0;
+  }
+
+  .header__container {
+    height: 56px;
+    padding: 0 16px;
   }
 }

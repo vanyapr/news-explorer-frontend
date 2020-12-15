@@ -13,13 +13,13 @@ only screen and (min-resolution: 2dppx) {
 
 .search-form__container {
   max-width: 1282px;
-  padding: 80px 25px;
+  padding: 160px 25px;
   margin: 0 auto;
   box-sizing: border-box;
 }
 
 .search-form__heading {
-  margin: 80px 0 0;
+  margin: 0;
   padding: 0;
   font-family: 'Roboto Slab', serif;
   font-style: normal;
@@ -91,4 +91,33 @@ only screen and (min-resolution: 2dppx) {
 
 .search-form__button:focus {
   background-color: #2A65CC;
+}
+
+@media screen and (max-width: 768px) {
+  .search-form__container {
+    padding: 104px 40px 48px;
+  }
+
+  .search-form__heading {
+    font-size: 36px;
+    line-height: 40px;
+  }
+
+  .search-form__description {
+    margin-top: 16px;
+  }
+
+  .search-form__form {
+    margin-top: 48px;
+    max-width: 448px;
+  }
+
+  .search-form__input {
+
+    padding: 17px 196px 17px 24px;
+  }
+
+  .search-form__button {
+    padding: 17px 49px 17px 50px;
+  }
 }
