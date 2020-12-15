@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   background: #fff;
-  padding:  0 24px 24px;
+  padding:  0 0 24px;
   position: relative;
   border-radius: 16px;
   z-index: 1;
@@ -15,10 +15,15 @@
   box-shadow: 0 24px 24px -18px rgba(8, 29, 45, 0.1);;
 }
 
-.card__image {
+.card__image-container {
   order: -2;
-  margin: 0 -24px;
+  margin: 0;
+  font-size: 0;
+}
+
+.card__image {
   border-radius: 16px 16px 0 0;
+  max-width: 100%;
 }
 
 
@@ -28,7 +33,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
-  margin: 20px 0 0;
+  margin: 20px 24px 0;
   order: -1;
   color: #B6BCBF;
 }
@@ -38,13 +43,20 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: initial;
-  /*
-  Вообще не понятно, как это сделать без вендорных префиксов:
-  У нас высота одного элемента зависит от высоты другого, единственный способ - так
-  */
+  /*!**/
+  /*Вообще не понятно, как это сделать без вендорных префиксов:*/
+  /*У нас высота одного элемента зависит от высоты другого, единственный способ - так*/
+  /**!*/
   display: -webkit-box;
   -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
+  /*margin-bottom: 42px;*/
+  /*box-sizing: border-box;*/
+  /*position: relative;*/
+}
+
+.card__text:after {
+  content: '...'
 }
 
 .card__name {
@@ -54,7 +66,7 @@
   font-size: 26px;
   line-height: 30px;
   color: var(--main-color);
-  margin: 12px 0 0;
+  margin: 12px 24px 0;
 }
 
 .card__link {
@@ -69,7 +81,7 @@
   font-size: 16px;
   line-height: 22px;
   color: var(--main-color);
-  margin: 16px 0 0;
+  margin: 16px 24px 0;
 }
 
 .card__description:after {
@@ -112,4 +124,34 @@
 .card__badge_type_delete {
   font-size: 12px;
   line-height: 14px;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    height: 420px;
+    padding-bottom: 16px;
+  }
+
+  .card__text {
+    /*height: 185px;*/
+  }
+
+  .card__name {
+    font-size: 22px;
+    line-height: 24px;
+    margin: 12px 16px 0;
+  }
+
+  .card__description {
+    margin: 10px 16px 0;
+  }
+
+  .card__date {
+    margin: 16px 16px 0;
+  }
+
+  .card__source {
+    bottom: 16px;
+    left: 16px;
+  }
 }

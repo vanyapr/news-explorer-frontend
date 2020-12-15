@@ -39,3 +39,13 @@
 .header__logo_theme_contrast {
   color: var(--contrast-color);
 }
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding-top: 2px;
+  }
+
+  .header__container {
+    height: calc(66px - 3px - 1px);
+  }
+}

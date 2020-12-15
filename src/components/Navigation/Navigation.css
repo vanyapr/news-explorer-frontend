@@ -30,6 +30,7 @@
   color: var(--contrast-color);
 }
 
+
 /* В макете отступы отличаются, решу вопрос так*/
 .navigation__link:last-of-type {
   margin-right: 32px;
@@ -86,3 +87,17 @@
   background-image: url('../../images/logout-icon-contrast.svg');
 }
 
+@media screen and (max-width: 768px) {
+  .navigation__link {
+    font-size: 16px;
+  }
+
+  .navigation__link.active:after {
+    bottom: -22px;
+  }
+
+  .navigation__button {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+}

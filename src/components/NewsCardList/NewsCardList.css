@@ -1,6 +1,12 @@
 .card-list {
   display: grid;
-  grid-template-columns: repeat(3, 400px);
+  /*grid-template-columns: repeat(3, 400px);*/
   grid-template-columns: repeat(3, minmax(400px, 1fr));
   grid-gap: 16px;
+}
+
+@media screen and (max-width: 1322px) {
+  .card-list {
+    grid-template-columns: repeat(3, minmax(224px, 400px));
+  }
 }
