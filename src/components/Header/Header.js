@@ -24,8 +24,9 @@ class Header extends React.Component {
         <div className="header__container">
           <Link to="/" className={`header__logo ${this.props.theme && `header__logo_${this.props.theme}`}`} title='News Explorer'>NewsExplorer</Link>
           <Navigation isOpened={this.state.isNavigationOpened} openLoginPopUp={this.props.openLoginPopUp} theme={this.props.theme} />
-          {!this.props.isSomePopupOpened && <button onClick={this.toggleNavigation} className={`header__switch ${this.state.isNavigationOpened ? 'header__switch_state_enabled' : ''} ${this.props.theme ? `header__switch_${this.props.theme}` : ''}`}>Показать навигацию</button>}
-          {this.props.isSomePopupOpened && <button onClick={this.props.closePopup} className={`header__switch header__switch_state_enabled ${this.props.theme ? `header__switch_${this.props.theme}` : ''}`}>Закрыть попап</button>}
+          <button onClick={this.props.isSomePopupOpened ? this.props.closePopup : this.toggleNavigation} className={`header__switch ${this.state.isNavigationOpened || this.props.isSomePopupOpened ? 'header__switch_state_enabled' : ''} ${this.props.theme ? `header__switch_${this.props.theme}` : ''}`}>
+            Показать навигацию
+          </button>
         </div>
       </header>
     );

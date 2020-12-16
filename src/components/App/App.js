@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom'; // Компоненты для роутинга и редиректа
+import { Route, Switch } from 'react-router-dom'; // Компоненты для роутинга и редиректа
 import './App.css';
 import Header from '../Header/Header'; // Шапка
 import Main from '../Main/Main'; // Главная страница

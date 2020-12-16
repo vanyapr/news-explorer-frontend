@@ -2,23 +2,21 @@
   position: absolute;
   top: 24px;
   right: 24px;
-  background: #FFFFFF;
   border-radius: 8px;
   width: 40px;
   height: 40px;
   border: none;
   text-indent: -9000px;
   cursor: pointer;
-  background-repeat: no-repeat;
-  background-position: center;
+  background: #FFFFFF no-repeat center;
 }
 
 .card__button_type_bookmark {
-  background-image: url("../../images/bookmark-icon.svg");
+  background-image: url("../../images/bookmark-icon-hover.svg");
 }
 
 .card__button_type_bookmark:hover {
-  background-image: url("../../images/bookmark-icon-hover.svg");
+  background-image: url("../../images/bookmark-icon.svg");
 }
 
 .card__button_type_bookmark_state_active {
@@ -26,11 +24,11 @@
 }
 
 .card__button_type_delete {
-  background-image: url("../../images/icon-delete.svg");
+  background-image: url("../../images/icon-delete-hover.svg");
 }
 
 .card__button_type_delete:hover {
-  background-image: url("../../images/icon-delete-hover.svg");
+  background-image: url("../../images/icon-delete.svg");
 }
 
 .card__tooltip {
