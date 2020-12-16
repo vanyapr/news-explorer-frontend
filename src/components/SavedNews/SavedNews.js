@@ -5,7 +5,6 @@ import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import SavedNewsList from '../SavedNewsList/SavedNewsList';
 
 class SavedNews extends React.Component {
-
   render() {
     return (
       <>

@@ -33,6 +33,7 @@
     "quote-props": "off" // Ошибки с кавычками при передаче заголовков запроса fetch
   },
   "plugins": [
+    "react",
     //"eslint-plugin-no-memo-displayname", // Должен исправлять ошибки eslint React.memo(), но не работает?
     "eslint-plugin-react"
   ],

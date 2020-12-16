@@ -27,13 +27,17 @@
 }
 
 .navigation__link_theme_contrast {
-  color: var(--contrast-color);
+  color: #B6BCBF;
 }
 
 
 /* В макете отступы отличаются, решу вопрос так*/
 .navigation__link {
   margin-right: 32px;
+}
+
+.navigation__link_theme_contrast.active {
+  color: var(--contrast-color);
 }
 
 .navigation__link.active:after {

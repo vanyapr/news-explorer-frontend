@@ -14,8 +14,8 @@ class RegisterPopup extends React.Component {
           children={
             <PopupWithForm
               changePopup={this.props.changePopup}
-              buttonText='Войти'
-              alternative='Зарегистрироваться'
+              buttonText='Зарегистрироваться'
+              alternative='Войти'
               children={
                 <>
                   <div className="form__input-container" >

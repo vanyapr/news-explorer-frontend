@@ -20,8 +20,8 @@ class LoginPopup extends React.Component {
           children={
             <PopupWithForm
               changePopup={this.props.changePopup}
-              buttonText='Зарегистрироваться'
-              alternative='Войти'
+              buttonText='Войти'
+              alternative='Зарегистрироваться'
               children={
                 <>
                   <div className="form__input-container" >

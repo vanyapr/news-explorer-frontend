@@ -7,7 +7,7 @@ import SavedNews from '../SavedNews/SavedNews'; // Сраница сохранё
 import Footer from '../Footer/Footer';
 import LoginPopup from '../LoginPopup/LoginPopup';
 import RegisterPopup from '../RegisterPopup/RegisterPopup';
-import NotificationPopup from "../NotificationPopup/NotificationPopup"; // Подвал
+import NotificationPopup from '../NotificationPopup/NotificationPopup'; // Подвал
 
 class App extends React.Component {
   constructor(props) {
@@ -17,6 +17,7 @@ class App extends React.Component {
       isLoginPopupOpened: false,
       isRegisterPopupOpened: false,
       isNotificationPopupOpened: false,
+      isSomePopupOpened: false, // Открыт ли хотя бы один попап
     };
   }
 
@@ -25,6 +26,7 @@ class App extends React.Component {
       isLoginPopupOpened: false,
       isRegisterPopupOpened: false,
       isNotificationPopupOpened: false,
+      isSomePopupOpened: false,
     });
   }
 
@@ -32,6 +34,7 @@ class App extends React.Component {
     this.closeAllPopups(); // Закроем все попаппы
     this.setState({
       isLoginPopupOpened: true,
+      isSomePopupOpened: true, // Открыт ли хотя бы один попап
     }); // Откроем попап логина
   }
 
@@ -39,6 +42,7 @@ class App extends React.Component {
     this.closeAllPopups(); // Закроем все попаппы
     this.setState({
       isRegisterPopupOpened: true,
+      isSomePopupOpened: true, // Открыт ли хотя бы один попап
     }); // Откроем попап логина
   }
 
@@ -46,6 +50,7 @@ class App extends React.Component {
     this.closeAllPopups(); // Закроем все попаппы
     this.setState({
       isNotificationPopupOpened: true,
+      isSomePopupOpened: true, // Открыт ли хотя бы один попап
     }); // Откроем попап логина
   }
 
@@ -58,12 +63,12 @@ class App extends React.Component {
       <>
         <Switch>
           <Route exact path='/'>
-            <Header openLoginPopUp={this.openNotificationPopup} theme='theme_contrast' />
+            <Header isSomePopupOpened={this.state.isSomePopupOpened} closePopup={this.closeAllPopups} openLoginPopUp={this.openNotificationPopup} theme='theme_contrast' />
             <Main />
             <Footer />
           </Route>
           <Route path='/saved-news'>
-            <Header />
+            <Header isSomePopupOpened={this.state.isSomePopupOpened} closePopup={this.closeAllPopups} openLoginPopUp={this.openNotificationPopup} />
             <SavedNews />
             <Footer />
           </Route>

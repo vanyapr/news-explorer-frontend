@@ -113,7 +113,6 @@ only screen and (min-resolution: 2dppx) {
   }
 
   .search-form__input {
-
     padding: 17px 196px 17px 24px;
   }
 
@@ -123,5 +122,23 @@ only screen and (min-resolution: 2dppx) {
 }
 
 @media screen and (max-width: 580px) {
+  .search-form__container {
+    padding: 86px 16px 32px;
+  }
 
+  .search-form__form {
+    margin-top: 122px;
+    max-width: 100%;
+  }
+
+  .search-form__input {
+    padding: 17px 16px;
+  }
+
+  .search-form__button {
+    margin-top: 16px;
+    position: initial;
+    padding: 17px 49px 17px 50px;
+    width: 100%;
+  }
 }
