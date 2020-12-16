@@ -121,3 +121,7 @@ only screen and (min-resolution: 2dppx) {
     padding: 17px 49px 17px 50px;
   }
 }
+
+@media screen and (max-width: 580px) {
+
+}

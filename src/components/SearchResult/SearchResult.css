@@ -52,6 +52,7 @@
 .search-result__button_state_disabled {
   background: #E6E8EB;
   color: #B6BCBF;
+  cursor: not-allowed;
 }
 
 @media screen and (max-width: 768px) {

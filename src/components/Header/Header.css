@@ -36,6 +36,10 @@
   text-decoration: none;
 }
 
+.header__switch {
+  display: none;
+}
+
 .header__logo_theme_contrast {
   color: var(--contrast-color);
 }
@@ -62,5 +66,83 @@
   .header__container {
     height: 56px;
     padding: 0 16px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .header {
+  }
+
+  .header_theme_contrast {
+
+  }
+
+  .header_theme_contrast.header_state_navigation-opened {
+    background-color: #1A1B22;
+  }
+
+  .header_state_navigation-opened {
+    position: fixed;
+    z-index: 2;
+  }
+
+  .header__switch {
+    display: block;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 16px;
+    top: 16px;
+    text-indent: -9000px;
+    border: none;
+    background: transparent;
+  }
+
+  /*  Сделаю анимацию как на сайте эппла, потому что могу */
+  .header__switch:before {
+    content: '';
+    position: absolute;
+    background: #1A1B22;
+    width: 16px;
+    height: 2px;
+    display: block;
+    left: 4px;
+    top: 8px;
+    /* Анимация как в макете */
+    transition: transform linear .3456789012s;
+  }
+
+  .header__switch:after {
+    content: '';
+    position: absolute;
+    background: #1A1B22;
+    width: 16px;
+    height: 2px;
+    display: block;
+    left: 4px;
+    bottom: 8px;
+    /* П - Перфекционист */
+    transition: transform linear .4321098765s;
+  }
+
+  .header__switch_state_enabled:before {
+    left: 4px;
+    top: 11px;
+    transform: rotate(-45deg);
+  }
+
+  .header__switch_state_enabled:after {
+    left: 4px;
+    top: 11px;
+    transform: rotate(45deg);
+  }
+
+
+  .header__switch_theme_contrast:before {
+    background: #fff;
+  }
+
+  .header__switch_theme_contrast:after {
+    background: #fff;
   }
 }

@@ -100,7 +100,7 @@
   }
 }
 
-@media screen and (max-width: 570px) {
+@media screen and (max-width: 640px) {
   .footer__container {
     /*padding: 0 16px;*/
     gap: 20px;

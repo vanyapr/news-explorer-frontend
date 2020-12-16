@@ -1,16 +1,12 @@
 import React from 'react';
 import './Navigation.css';
-import { NavLink, Switch, Route } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 class Navigation extends React.Component {
-  // handleLoginClick = () => {
-  //   this.props.openLoginPopup();
-  // }
-
   render() {
     return (
-      <nav className='navigation'>
-        <ul className="navigation__list">
+      <nav className={`navigation ${this.props.theme ? `navigation_theme_${this.props.theme}` : ''} ${this.props.isOpened ? 'navigation_state_opened' : ''}`}>
+        <ul className={`navigation__list ${this.props.theme ? `navigation__list_${this.props.theme}` : ''}`}>
           <li className="navigation__list-item">
             <NavLink exact to='/' className={`navigation__link ${this.props.theme ? `navigation__link_${this.props.theme}` : ''}`}>Главная</NavLink>
           </li>

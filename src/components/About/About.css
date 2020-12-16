@@ -59,7 +59,7 @@
   }
 }
 
-@media screen and (max-width: 570px) {
+@media screen and (max-width: 640px) {
   .about__container {
     flex-direction: column;
     gap: 24px;
