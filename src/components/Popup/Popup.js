@@ -3,7 +3,6 @@ import './Popup.css';
 
 class Popup extends React.Component {
   handleClose = (event) => {
-    console.log(event.target.className);
     if (event.target.classList.contains('popup_opened') || event.target.className === 'popup__close') {
       this.props.close();
     }

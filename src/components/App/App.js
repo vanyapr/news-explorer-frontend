@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom'; // Компоненты для роутинга и редиректа
+import MainApi from '../../utils/MainApi';
 import './App.css';
 import Header from '../Header/Header'; // Шапка
 import Main from '../Main/Main'; // Главная страница
@@ -19,6 +20,15 @@ class App extends React.Component {
       isNotificationPopupOpened: false,
       isSomePopupOpened: false, // Открыт ли хотя бы один попап
     };
+  }
+
+  // Авторизует пользователя по данным авторизации
+  _loginUser = (userData) => {
+    MainApi.login(userData).then((responce) => {
+      console.log(responce);
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
   closeAllPopups = () => {
@@ -46,7 +56,7 @@ class App extends React.Component {
     }); // Откроем попап логина
   }
 
-  openNotificationPopup= () => {
+  openNotificationPopup = () => {
     this.closeAllPopups(); // Закроем все попаппы
     this.setState({
       isNotificationPopupOpened: true,
@@ -73,7 +83,7 @@ class App extends React.Component {
             <Footer />
           </Route>
         </Switch>
-        <LoginPopup changePopup={this.openRegisterPopup} isLoginPopupOpened={this.state.isLoginPopupOpened} close={this.closeAllPopups} />
+        <LoginPopup changePopup={this.openRegisterPopup} isLoginPopupOpened={this.state.isLoginPopupOpened} close={this.closeAllPopups} onSubmit={this._loginUser} />
         <RegisterPopup changePopup={this.openLoginPopup} isRegisterPopupOpened={this.state.isRegisterPopupOpened} close={this.closeAllPopups} />
         <NotificationPopup changePopup={this.openLoginPopup} isNotificationPopupOpened={this.state.isNotificationPopupOpened} close={this.closeAllPopups} />
       </>

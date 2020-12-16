@@ -93,9 +93,11 @@
   background-color: #2A65CC;
 }
 
-.form__submit-button_state_disabled {
+.form__submit-button_state_disabled, .form__submit-button_state_disabled:hover {
   background-color: #E6E8EB;
   color: #B6BCBF;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .form__variants {
