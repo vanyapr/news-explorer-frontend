@@ -15,7 +15,7 @@
 }
 
 .navigation__link {
-  font-family:  'Roboto', sans-serif;
+  font-family:  'Roboto', 'Arial', 'Helvetica CY','Nimbus Sans L', sans-serif;
   text-decoration: none;
   font-style: normal;
   font-weight: 500;
@@ -61,7 +61,7 @@
   border-radius: 100px;
   /*padding: 12px 19px 12px 19px;*/
   padding: 12px 17px 14px;
-  font-family:  'Roboto', sans-serif;
+  font-family:  'Roboto', 'Arial', 'Helvetica CY','Nimbus Sans L', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;

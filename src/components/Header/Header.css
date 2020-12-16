@@ -27,7 +27,7 @@
 }
 
 .header__logo {
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Roboto Slab', 'Times New Roman', 'Times CY', 'Nimbus Roman No9 L', serif;
   font-style: normal;
   font-weight: 700;
   font-size: 20px;

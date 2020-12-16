@@ -13,7 +13,7 @@
 }
 
 .about__heading {
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Roboto Slab', 'Times New Roman', 'Times CY', 'Nimbus Roman No9 L', serif;
   font-style: normal;
   font-weight: 400;
   font-size: 40px;
@@ -23,7 +23,7 @@
 }
 
 .about__description {
-  font-family:  'Roboto', sans-serif;
+  font-family:  'Roboto', 'Arial', 'Helvetica CY','Nimbus Sans L', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;

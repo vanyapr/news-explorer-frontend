@@ -14,7 +14,7 @@
 }
 
 .footer__copyright {
-  font-family:  'Roboto', sans-serif;
+  font-family:  'Roboto', 'Arial', 'Helvetica CY','Nimbus Sans L', sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -43,7 +43,7 @@
 }
 
 .footer__link {
-  font-family:  'Roboto', sans-serif;
+  font-family:  'Roboto', 'Arial', 'Helvetica CY','Nimbus Sans L', sans-serif;
   color: var(--main-color);
   text-decoration: none;
   font-style: normal;

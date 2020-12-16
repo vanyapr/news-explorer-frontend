@@ -56,7 +56,7 @@
 }
 
 .card__name {
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Roboto Slab', 'Times New Roman', 'Times CY', 'Nimbus Roman No9 L', serif;
   font-style: normal;
   font-weight: 400;
   font-size: 26px;
@@ -86,7 +86,7 @@
 }
 
 .card__source {
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Roboto Slab', 'Times New Roman', 'Times CY', 'Nimbus Roman No9 L', serif;
   font-style: normal;
   color: #B6BCBF;
   font-weight: 700;

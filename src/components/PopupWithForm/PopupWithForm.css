@@ -14,7 +14,7 @@
 
 .form__input-label {
   display: block;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', "Arial Black", "Helvetica CY", "Nimbus Sans L", sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -23,7 +23,7 @@
 }
 
 .form__input {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', "Arial Black", "Helvetica CY", "Nimbus Sans L", sans-serif;
   font-style: normal;
   font-weight: 400;
   margin: 10px 0 0;
@@ -41,7 +41,7 @@
 }
 
 .form__input-error {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', "Arial Black", "Helvetica CY", "Nimbus Sans L", sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -53,7 +53,7 @@
 }
 
 .form__form-error {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', "Arial Black", "Helvetica CY", "Nimbus Sans L", sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -99,7 +99,7 @@
 }
 
 .form__variants {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', "Arial Black", "Helvetica CY", "Nimbus Sans L", sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
