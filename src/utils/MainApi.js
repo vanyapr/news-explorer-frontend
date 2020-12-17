@@ -17,6 +17,7 @@ class MainApi {
     return Promise.reject(new Error(errorMessage));
   }
 
+  // Принимает ошибки, выводит в консоль и возвращает реджект промиса
   _catchErrors(error) {
     // Вывели ошибку в консоль
     console.log(error.message);
@@ -50,6 +51,19 @@ class MainApi {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(loginData),
+    })
+      .then(this._processResponse)
+      .catch(this._catchErrors);
+  }
+
+  // Принимает токен и возвращает данные пользователя, либо ошибку
+  getUserData(token) {
+    return fetch(`${this.apiUrl}/users/me`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
     })
       .then(this._processResponse)
       .catch(this._catchErrors);

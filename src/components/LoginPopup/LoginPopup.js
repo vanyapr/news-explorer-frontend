@@ -81,16 +81,8 @@ class LoginPopup extends React.Component {
 
   _validatePassword = () => {
     if (this.state.password.length > 0) {
-      // Если пароль не пустой
-      // Получим удовольствие (и вызовем баттхёрт юзера),
-      // потребуем, чтобы пароль содержал буквы и цифры
-      const passwordRegExp = /^[a-z0-9]+$/;
-      if (!this.state.password.match(passwordRegExp)) {
-        this.setState({
-          passwordValid: false,
-          passwordError: 'Пароль должен содержать только буквы и цифры',
-        });
-      } else if (this.state.password.length < 5) {
+      // Если пароль не пустой, то проверим длину
+      if (this.state.password.length < 5) {
         this.setState({
           passwordValid: false,
           passwordError: 'Пароль должен быть длиннее 5 символов',
@@ -104,7 +96,7 @@ class LoginPopup extends React.Component {
     } else {
       this.setState({
         passwordValid: false,
-        passwordError: 'Поле пароль обязательно',
+        passwordError: 'Обязательно укажите пароль',
       });
     }
   }
