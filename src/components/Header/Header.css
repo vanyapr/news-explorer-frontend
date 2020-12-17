@@ -1,0 +1,148 @@
+.header {
+  /* Использую бордер-боттом потому что так быстрее работает*/
+  border-bottom: 1px solid #D1D2D6;
+  padding-top: 3px;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: #fff;
+}
+
+.header_theme_contrast {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+}
+
+.header__container {
+  margin: 0 auto;
+  /* Ширина в макете 1068px + включу отступы слева и справа по 25 пикселей*/
+  max-width: 1282px;
+  padding: 0 25px;
+  height: calc(80px - 3px - 1px);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo {
+  font-family: 'Roboto Slab', 'Times New Roman', 'Times CY', 'Nimbus Roman No9 L', serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--main-color);
+  text-decoration: none;
+}
+
+.header__switch {
+  display: none;
+}
+
+.header__logo_theme_contrast {
+  color: var(--contrast-color);
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding-top: 2px;
+  }
+
+  .header__container {
+    padding: 0 40px;
+  }
+
+  .header__container {
+    height: calc(66px - 3px - 1px);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .header {
+    padding: 0;
+  }
+
+  .header__container {
+    height: 56px;
+    padding: 0 16px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .header {
+  }
+
+  .header_theme_contrast {
+
+  }
+
+  .header_theme_contrast.header_state_navigation-opened {
+    background-color: #1A1B22;
+  }
+
+  .header_state_navigation-opened {
+    position: fixed;
+    z-index: 2;
+  }
+
+  .header__switch {
+    display: block;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 16px;
+    top: 16px;
+    text-indent: -9000px;
+    border: none;
+    background: transparent;
+  }
+
+  /*  Сделаю анимацию как на сайте эппла, потому что могу */
+  .header__switch:before {
+    content: '';
+    position: absolute;
+    background: #1A1B22;
+    width: 16px;
+    height: 2px;
+    display: block;
+    left: 4px;
+    top: 8px;
+    /* Анимация как в макете */
+    transition: transform linear .3456789012s;
+  }
+
+  .header__switch:after {
+    content: '';
+    position: absolute;
+    background: #1A1B22;
+    width: 16px;
+    height: 2px;
+    display: block;
+    left: 4px;
+    bottom: 8px;
+    /* П - Перфекционист */
+    transition: transform linear .4321098765s;
+  }
+
+  .header__switch_state_enabled:before {
+    left: 4px;
+    top: 11px;
+    transform: rotate(-45deg);
+  }
+
+  .header__switch_state_enabled:after {
+    left: 4px;
+    top: 11px;
+    transform: rotate(45deg);
+  }
+
+
+  .header__switch_theme_contrast:before {
+    background: #fff;
+  }
+
+  .header__switch_theme_contrast:after {
+    background: #fff;
+  }
+}

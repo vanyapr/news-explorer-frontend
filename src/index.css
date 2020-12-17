@@ -1,0 +1,26 @@
+/*Vendor*/
+@import url(./vendor/normalize.css);
+@import url(./fonts/fonts.css);
+
+:root {
+  --main-color: #1A1B22;
+  --contrast-color: #fff;
+  --gray-color: #B6BCBF;
+}
+
+.root {
+  /* Суповой набор */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+
+  /*Переопределим стили страницы цвет фона и цвет шрифта */
+  background-color: #F5F6F7;
+  color: var(--main-color);
+  position: relative;
+  min-width: 320px;
+  min-height: 100vh;
+}

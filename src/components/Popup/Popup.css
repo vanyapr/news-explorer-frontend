@@ -1,0 +1,82 @@
+.popup {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.popup_opened {
+  display: block;
+}
+
+.popup__container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 430px;
+  background: #FFF;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  max-width: 430px;
+  box-sizing: border-box;
+  padding: 34px 36px 38px;
+}
+
+.popup__title {
+  font-family:  'Roboto', 'Arial', 'Helvetica CY','Nimbus Sans L', sans-serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 28px;
+  color: var(--main-color);
+  margin: 0;
+}
+
+.popup__close {
+  background-image: url('../../images/close-icon.svg');
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 40px;
+  background-position: center;
+  position: absolute;
+  right: -46px;
+  top: -46px;
+  background-color: transparent;
+  border: none;
+  text-indent: -9000px;
+  padding: 0;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 580px) {
+  .popup {
+    background: transparent;
+  }
+
+  .popup__container {
+    position: initial;
+    margin-top: 57px;
+    min-width: 100%;
+    max-width: initial;
+    transform: none;
+    height: calc(100vh - 57px);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 16px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .popup__close {
+    /*
+    Судя по макету, эту кнопку надо скрыть
+    При открытии попапа буду передавать экшен
+    для закрытия попапа кнопке в хидере
+    */
+    display: none;
+  }
+}

@@ -1,0 +1,173 @@
+.navigation__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+
+.navigation__list-item {
+  /*!* Инлайн поведение для блоков*!*/
+  /*display: inline;*/
+  margin: 0;
+  padding: 0;
+}
+
+.navigation__link {
+  font-family:  'Roboto', 'Arial', 'Helvetica CY','Nimbus Sans L', sans-serif;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--main-color);
+  position: relative;
+  margin-right: 34px;
+}
+
+.navigation__link_theme_contrast {
+  color: #B6BCBF;
+}
+
+
+/* В макете отступы отличаются, решу вопрос так*/
+.navigation__link {
+  margin-right: 32px;
+}
+
+.navigation__link_theme_contrast.active {
+  color: var(--contrast-color);
+}
+
+.navigation__link.active:after {
+  content: '';
+  width: 100%;
+  display: block;
+  height: 3px;
+  background-color: var(--main-color);
+  position: absolute;
+  bottom: -29px;
+  left: 0;
+}
+
+.navigation__link_theme_contrast.active:after {
+  background-color: var(--contrast-color);
+}
+
+.navigation__button {
+  border: 1px solid var(--main-color);
+  box-sizing: border-box;
+  border-radius: 100px;
+  /*padding: 12px 19px 12px 19px;*/
+  padding: 12px 17px 14px;
+  font-family:  'Roboto', 'Arial', 'Helvetica CY','Nimbus Sans L', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.navigation__button_theme_contrast {
+  border: 1px solid var(--contrast-color);
+  color: var(--contrast-color);
+}
+
+.navigation__button-icon-logout {
+  background-image: url('../../images/logout-icon.svg');
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  text-indent: -9000px;
+  width: 18px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 12px;
+}
+
+.navigation__button-icon-logout_theme_contrast {
+  background-image: url('../../images/logout-icon-contrast.svg');
+}
+
+@media screen and (max-width: 768px) {
+  .navigation__link {
+    font-size: 16px;
+    margin-right: 16px;
+  }
+
+  .navigation__link.active:after {
+    bottom: -22px;
+  }
+
+  .navigation__button {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .navigation {
+    position: absolute;
+    top: 57px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 57px);
+    z-index: 1;
+    display: block;
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, .5);
+  }
+
+  .navigation__list {
+    background: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+    padding: 30px 16px 24px;
+  }
+
+  .navigation__list_theme_contrast {
+    background-color: #1A1B22;
+  }
+
+  .navigation_state_opened {
+    visibility: visible;
+  }
+
+  .navigation_state_opened:after {
+    content: '';
+    display: block;
+    background-color: red;
+    bottom: 0;
+    right: 0;
+  }
+
+  .navigation__list-item:not(:last-child) {
+    margin-bottom: 30px;
+  }
+
+  .navigation__link {
+    margin: 0;
+    font-size: 18px;
+  }
+
+  .navigation__link.active:after {
+    display: none;
+  }
+
+  .navigation__button {
+    width: 100%;
+    padding: 15px 74px 17px;
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .navigation__link_theme_contrast {
+    color: #fff;
+  }
+}
