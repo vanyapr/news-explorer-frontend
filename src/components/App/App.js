@@ -15,20 +15,65 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      isLoginPopupOpened: false,
-      isRegisterPopupOpened: false,
-      isNotificationPopupOpened: false,
+      isUserLogined: false, // Авторизован ли юзер
+      isLoginPopupOpened: false, // Открыт ли попап логина
+      isRegisterPopupOpened: false, // Открыт ли попап регистрации
+      isNotificationPopupOpened: false, //
       isSomePopupOpened: false, // Открыт ли хотя бы один попап
     };
   }
 
-  // Авторизует пользователя по данным авторизации
+  // Сделано
+  // 1) В формах авторизации и регистрации валидировать поля
+
+  // TODO:
+  // 1) Проверять состояние авторизации,
+  // 1) Передавать ошибку формы в форму
+  // 2) Если юзер не авторизован, показывать в шапке кнопку авторизации
+  // 2) Если юзер не авторизован, не пускать его в сохранённые новости
+  // 4) При ошибке авторизации рендерить её в инпут авторизации
+
+  // Авторизует пользователя по переданным в JSON данным
   _loginUser = (userData) => {
-    MainApi.login(userData).then((responce) => {
-      console.log(responce);
-    }).catch((error) => {
-      console.log(error);
-    });
+    // Возвращаем промис чтобы передать ошибку в форму
+    return MainApi.login(userData)
+      .then((responce) => {
+        // Если ответ получен, обработали
+        if (responce) {
+          console.log(responce);
+        }
+      }).catch((error) => {
+        // Возвращаем во внешний обработчик ошибки реджект промиса с ошибкой
+        const { message } = error;
+        return Promise.reject(new Error(message));
+      });
+  }
+
+  // Регистрирует пользователя по переданным в JSON данным
+  _registerUser = (userData) => {
+    return MainApi.register(userData)
+      .then((responce) => {
+        // Если ответ получен, обработали
+        if (responce) {
+          console.log(responce);
+        }
+      }).catch((error) => {
+        // Возвращаем во внешний обработчик ошибки реджект промиса с ошибкой
+        const { message } = error;
+        return Promise.reject(new Error(message));
+      });
+  }
+
+  _checkToken = () => {
+    // Проверить наличие токена
+  }
+
+  _getToken = () => {
+    // Получить токен
+  }
+
+  _saveToken = () => {
+    // Записать токен в localstorage
   }
 
   closeAllPopups = () => {
@@ -65,7 +110,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.openLoginPopup();
+    this.openRegisterPopup();
   }
 
   render() {
@@ -84,7 +129,7 @@ class App extends React.Component {
           </Route>
         </Switch>
         <LoginPopup changePopup={this.openRegisterPopup} isLoginPopupOpened={this.state.isLoginPopupOpened} close={this.closeAllPopups} onSubmit={this._loginUser} />
-        <RegisterPopup changePopup={this.openLoginPopup} isRegisterPopupOpened={this.state.isRegisterPopupOpened} close={this.closeAllPopups} />
+        <RegisterPopup changePopup={this.openLoginPopup} isRegisterPopupOpened={this.state.isRegisterPopupOpened} close={this.closeAllPopups} onSubmit={this._registerUser}/>
         <NotificationPopup changePopup={this.openLoginPopup} isNotificationPopupOpened={this.state.isNotificationPopupOpened} close={this.closeAllPopups} />
       </>
     );
