@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom'; // Компоненты для роутинга и редиректа
+import { Route, Switch, Redirect } from 'react-router-dom'; // Компоненты для роутинга и редиректа
 import MainApi from '../../utils/MainApi';
 import './App.css';
 import Header from '../Header/Header'; // Шапка
@@ -10,6 +10,7 @@ import LoginPopup from '../LoginPopup/LoginPopup';
 import RegisterPopup from '../RegisterPopup/RegisterPopup';
 import NotificationPopup from '../NotificationPopup/NotificationPopup'; // Подвал
 import { CurrentUserContext } from '../../contexts/currentUserContext'; // Контекст текущего юзера
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'; // Защищённый роут
 
 class App extends React.Component {
   constructor(props) {
@@ -33,9 +34,13 @@ class App extends React.Component {
   // 1) Проверять состояние авторизации,
   // 2) Если юзер не авторизован, показывать в шапке кнопку авторизации и сохраненные статьи
   // 2) Если юзер не авторизован, не пускать его в сохранённые новости и не показывать
+  // 1) Зашитить роут /saved-news редиректом
+  // 1) После логаута редиректить на /
 
   // TODO:
-
+  // 1)
+  // 1)
+  // 1)
 
   // Авторизует пользователя по переданным в JSON данным
   _loginUser = (loginData) => {
@@ -199,11 +204,7 @@ class App extends React.Component {
             <Main />
             <Footer />
           </Route>
-          <Route path='/saved-news'>
-            <Header isSomePopupOpened={this.state.isSomePopupOpened} closePopup={this.closeAllPopups} logout={this.logout} openLoginPopUp={this.openLoginPopup} />
-            <SavedNews />
-            <Footer />
-          </Route>
+          <ProtectedRoute path='/saved-news' isUserLogined={this.state.isUserLogined} component={SavedNews} isSomePopupOpened={this.state.isSomePopupOpened} closePopup={this.closeAllPopups} logout={this.logout} openLoginPopUp={this.openLoginPopup} />
         </Switch>
         <LoginPopup changePopup={this.openRegisterPopup} isLoginPopupOpened={this.state.isLoginPopupOpened} close={this.closeAllPopups} onSubmit={this._loginUser} />
         <RegisterPopup changePopup={this.openLoginPopup} isRegisterPopupOpened={this.state.isRegisterPopupOpened} close={this.closeAllPopups} onSubmit={this._registerUser}/>
