@@ -26,8 +26,11 @@ class LoginPopup extends React.Component {
     })
       .then((success) => {
         // Если всё в порядке, промис разрешится и мы скроем ошибку формы
+        // А также сбросим значения инпутов
         this.setState({
           formError: '',
+          password: '',
+          email: '',
         });
       })
       .catch((error) => {

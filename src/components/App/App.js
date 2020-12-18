@@ -1,6 +1,7 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom'; // Компоненты для роутинга и редиректа
-import MainApi from '../../utils/MainApi';
+import { Route, Switch, withRouter } from 'react-router-dom'; // Компоненты для роутинга и редиректа
+import MainApi from '../../utils/MainApi'; // Основное апи
+import NewsApi from '../../utils/NewsApi'; // Апи новостей
 import './App.css';
 import Header from '../Header/Header'; // Шапка
 import Main from '../Main/Main'; // Главная страница
@@ -18,11 +19,20 @@ class App extends React.Component {
 
     this.state = {
       isUserLogined: false, // Авторизован ли юзер
-      currentUser: '', // Текущий пользователь (объект)
+      currentUser: {}, // Текущий пользователь (объект)
       isLoginPopupOpened: false, // Открыт ли попап логина
       isRegisterPopupOpened: false, // Открыт ли попап регистрации
       isNotificationPopupOpened: false, //
       isSomePopupOpened: false, // Открыт ли хотя бы один попап
+      isLoadSpinnerVisible: false, // Видим ли спиннер "идёт поиск новостей"
+      isSearchErrorVisible: false, // Видима ли ошибка поиска
+      searchErrorHeading: '', // Заголовок ошибки поиска
+      searchErrorText: '', // Текст ошибки поиска
+      isShowMoreButtonVisible: false,
+      isShowMoreButtonActive: false,
+      isSearchResultVisible: false, // Виден ли блок результатов поиска
+      foundNews: [], // Список найденных новостей
+      newsList: [], // Список новостей для показа
     };
   }
 
@@ -36,14 +46,28 @@ class App extends React.Component {
   // 2) Если юзер не авторизован, не пускать его в сохранённые новости и не показывать
   // 1) Зашитить роут /saved-news редиректом
   // 1) После логаута редиректить на /
+  // 1. Подключение по апи
+  // 1) Поиск статей
 
   // TODO:
-  // 1)
-  // 1)
-  // 1)
+  // 1) По 3 штуки рендерим на главной
+  // 1. Число сохранённых статей
+  // 1. Ключевые слова сохранённых статей
+  // 1) Добавление статьи в избранное
+  // 1) Удаление статьи из избранного
+  // 1) Обернуть компоненты в чистый компонент
+  // 1) При нажатии на иконку сохранения статьи неавторизованным пользователем открывается модальное окно с предложением зарегистрироваться
+
+  // FIXME
+  // 1) Когда редиректим из /saved-news неавторизованного юзера на страницу /
+  // - надо открывать попап авторизации:
+  // - когда юзер открывает роут
+  // - проверить авторизацию
+  // - если не авторизован
+  // - открыть попап
 
   // Авторизует пользователя по переданным в JSON данным
-  _loginUser = (loginData) => {
+  loginUser = (loginData) => {
     // Возвращаем промис чтобы передать ошибку в форму
     return MainApi.login(loginData)
       .then((responce) => {
@@ -71,7 +95,7 @@ class App extends React.Component {
   }
 
   // Регистрирует пользователя по переданным в JSON данным
-  _registerUser = (userData) => {
+  registerUser = (userData) => {
     return MainApi.register(userData)
       .then((responce) => {
         // Если ответ получен, обработали
@@ -89,7 +113,7 @@ class App extends React.Component {
   }
 
   // Отменяет авторизацию пользователя
-  logout = () => {
+  logoutUser = () => {
     this._deleteToken();
     this._unauthoriseUser();
   }
@@ -107,6 +131,8 @@ class App extends React.Component {
     this.setState({
       currentUser: '',
       isUserLogined: false,
+    }, () => {
+      this.props.history.push('/');
     });
   }
 
@@ -132,7 +158,7 @@ class App extends React.Component {
           // Если токена нет, или авторизация не удалась
           // Меняем состояние на неавторизованнное
           this._unauthoriseUser();
-          // Удаляем токен, если он есть
+          // Удаляем токен, если он есть, но не прошел проверку
           this._deleteToken();
         });
     }
@@ -191,7 +217,88 @@ class App extends React.Component {
     }); // Откроем попап логина
   }
 
+  // Обрабатывает сабмит формы поиска новостей, принимает строку поиска
+  handleSearchSubmit = (searchString) => {
+    // TODO:
+    // + Показать лоадер
+    // + Выполнить запрос
+    // + Скрыть лоадер
+    // + В случае ошибки показать ошибку
+    // + Показать блок "Результаты поиска"
+    // Если новости найдены, показать кнопку "ещё"
+    // Когда все карточки отрисованы, кнопка «Показать ещё» должна пропасть.
+
+    this.setState({
+      // Показали результаты поиска
+      isSearchResultVisible: true,
+      isLoadSpinnerVisible: true,
+      // Очистили текущий список карточек
+      newsList: [],
+      foundNews: [],
+    }, () => {
+      NewsApi.getNewsBySearchString(searchString)
+        .then((news) => {
+          if (news.totalResults === 0) {
+            // Показали ошибку поиска
+            this.setState({
+              isLoadSpinnerVisible: false,
+              isSearchErrorVisible: true,
+              searchErrorHeading: 'Ничего не найдено',
+              searchErrorText: 'К сожалению по вашему запросу ничего не найдено.',
+            });
+          } else {
+            // Скрыли ошибку поиска
+            this.setState({
+              // Если новости найдены, спиннер можно скрыть
+              isLoadSpinnerVisible: false,
+              isSearchErrorVisible: false,
+              searchErrorHeading: '',
+              searchErrorText: '',
+              isShowMoreButtonActive: 'true',
+              // Записали данные новостей в состояние компонента
+              foundNews: news.articles,
+            }, () => {
+              // В этом коллбэке добавить 3 новости к отображению
+              this.showMoreNews();
+            });
+          }
+        })
+        .catch((error) => {
+          // Отловили ошибку
+          console.log(error);
+          // Показали ошибку поиска
+          this.setState({
+            // Если новости не найдены, спиннер можно скрыть
+            isLoadSpinnerVisible: false,
+            isSearchErrorVisible: true,
+            searchErrorHeading: 'Во время запроса произошла ошибка',
+            searchErrorText: 'Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.',
+          });
+        });
+    });
+  }
+
+  showMoreNews = (count = 3) => {
+    // Проверить. хватит ли длины массива
+    // Если длины не хватает, выключаем кнопку
+    // Из списка сохранённых новостей загрузить 3 новости
+    const newsChunk = this.state.foundNews.slice(0, count);
+    // Уменьшить список новостей на эти 3 новости
+    const restOfNews = this.state.foundNews.slice(count, this.state.foundNews.length);
+    console.log(newsChunk);
+    console.log(restOfNews);
+    this.setState({
+      // Добавить эти три новости в список новостей для показа
+      newsList: [...this.state.newsList, ...newsChunk],
+      // Обновить список новостей в кеше
+      foundNews: restOfNews,
+    }, () => {
+      console.log(this.state.newsList);
+    });
+  }
+
   componentDidMount() {
+    // Проверяем токен юзера при монтировании компонента
     this._checkUserToken();
   }
 
@@ -200,18 +307,30 @@ class App extends React.Component {
       <CurrentUserContext.Provider value={this.state.currentUser}>
         <Switch>
           <Route exact path='/'>
-            <Header isSomePopupOpened={this.state.isSomePopupOpened} closePopup={this.closeAllPopups} logout={this.logout} openLoginPopUp={this.openLoginPopup} theme='theme_contrast' />
-            <Main />
+            <Header isSomePopupOpened={this.state.isSomePopupOpened} closePopup={this.closeAllPopups} logout={this.logoutUser} openLoginPopUp={this.openLoginPopup} theme='theme_contrast' />
+            <Main
+              isShowMoreButtonActive={this.state.isShowMoreButtonActive}
+              isShowMoreButtonVisible={this.state.isShowMoreButtonVisible}
+              isLoadSpinnerVisible={this.state.isLoadSpinnerVisible}
+              isSearchErrorVisible={this.state.isSearchErrorVisible}
+              searchErrorHeading={this.state.searchErrorHeading}
+              searchErrorText={this.state.searchErrorText}
+              handleSearchSubmit={this.handleSearchSubmit}
+              newsList={this.state.newsList}
+              isSearchVisible={this.state.isSearchResultVisible}
+            />
             <Footer />
           </Route>
-          <ProtectedRoute path='/saved-news' isUserLogined={this.state.isUserLogined} component={SavedNews} isSomePopupOpened={this.state.isSomePopupOpened} closePopup={this.closeAllPopups} logout={this.logout} openLoginPopUp={this.openLoginPopup} />
+          <ProtectedRoute path='/saved-news' isUserLogined={this.state.isUserLogined} component={SavedNews} isSomePopupOpened={this.state.isSomePopupOpened} closePopup={this.closeAllPopups} logout={this.logoutUser} openLoginPopUp={this.openLoginPopup} />
         </Switch>
-        <LoginPopup changePopup={this.openRegisterPopup} isLoginPopupOpened={this.state.isLoginPopupOpened} close={this.closeAllPopups} onSubmit={this._loginUser} />
-        <RegisterPopup changePopup={this.openLoginPopup} isRegisterPopupOpened={this.state.isRegisterPopupOpened} close={this.closeAllPopups} onSubmit={this._registerUser}/>
+        <LoginPopup changePopup={this.openRegisterPopup} isLoginPopupOpened={this.state.isLoginPopupOpened} close={this.closeAllPopups} onSubmit={this.loginUser} />
+        <RegisterPopup changePopup={this.openLoginPopup} isRegisterPopupOpened={this.state.isRegisterPopupOpened} close={this.closeAllPopups} onSubmit={this.registerUser}/>
         <NotificationPopup changePopup={this.openLoginPopup} isNotificationPopupOpened={this.state.isNotificationPopupOpened} close={this.closeAllPopups} />
       </CurrentUserContext.Provider>
     );
   }
 }
 
-export default App;
+// Обернули компонент в withRouter для доступа
+// к this.history.push()
+export default withRouter(App);

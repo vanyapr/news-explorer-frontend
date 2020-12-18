@@ -6,7 +6,10 @@ const ProtectedRoute = ({ component: Component, ...props }) => {
   return (
     <Route>
       {
-        () => (props.isUserLogined ? <Component {...props} /> : <Redirect to='/'/>)
+        () => (props.isUserLogined ? <Component {...props} /> : <Redirect to={{
+          pathname: '/',
+          state: { logOuted: true },
+        }}/>)
       }
     </Route>
   );

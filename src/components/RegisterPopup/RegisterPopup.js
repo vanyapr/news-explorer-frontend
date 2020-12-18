@@ -30,8 +30,12 @@ class RegisterPopup extends React.Component {
     })
       .then((success) => {
         // Если всё в порядке, промис разрешится и мы скроем ошибку формы
+        // а также сбросим значения полей на пустые
         this.setState({
           formError: '',
+          email: '',
+          password: '',
+          name: '',
         });
       })
       .catch((error) => {
