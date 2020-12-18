@@ -25,7 +25,7 @@ class Utils {
     return Promise.reject(new Error(error.message));
   }
 
-  // Вычисляет дату за минусом переданного числа дней
+  // Возвращает сегодняшнюю дату минусо (Х) дней в формате ISO 8601
   calculateDate(offsetDays = 0) {
     // Получили текущую дату
     const date = new Date();
@@ -35,6 +35,21 @@ class Utils {
     date.setDate(date.getDate() - offsetDays);
     // Вернули дату в формате ISO 8601
     return date.toISOString();
+  }
+
+  // Принимает дату в формате ISO 8601, возвращает дату вида "1 января 2020"
+  beautifyDate(ISODate) {
+    // Преобразовать дату из формата
+    this._date = new Date(ISODate);
+    this._year = this._date.getFullYear();
+    this._mounth = this._date.getMonth();
+    this._day = this._date.getDate();
+
+    // Массив с месяцами
+    this._mounthList = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+
+    // Собираем строку с датой в шаблон
+    return `${this._day} ${this._mounthList[this._mounth]} ${this._year}`;
   }
 }
 

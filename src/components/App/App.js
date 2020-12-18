@@ -278,6 +278,7 @@ class App extends React.Component {
     });
   }
 
+
   showMoreNews = (count = 3) => {
     // Проверить. хватит ли длины массива
     // Если длины не хватает, выключаем кнопку
@@ -285,8 +286,8 @@ class App extends React.Component {
     const newsChunk = this.state.foundNews.slice(0, count);
     // Уменьшить список новостей на эти 3 новости
     const restOfNews = this.state.foundNews.slice(count, this.state.foundNews.length);
-    console.log(newsChunk);
-    console.log(restOfNews);
+    // console.log(newsChunk);
+    // console.log(restOfNews);
     this.setState({
       // Добавить эти три новости в список новостей для показа
       newsList: [...this.state.newsList, ...newsChunk],
@@ -294,6 +295,7 @@ class App extends React.Component {
       foundNews: restOfNews,
     }, () => {
       console.log(this.state.newsList);
+      console.log(this.state.foundNews);
     });
   }
 
