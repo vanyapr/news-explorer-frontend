@@ -225,8 +225,8 @@ class App extends React.Component {
     // + Скрыть лоадер
     // + В случае ошибки показать ошибку
     // + Показать блок "Результаты поиска"
-    // Если новости найдены, показать кнопку "ещё"
-    // Когда все карточки отрисованы, кнопка «Показать ещё» должна пропасть.
+    // + Если новости найдены, показать кнопку "ещё"
+    // + Когда все карточки отрисованы, кнопка «Показать ещё» должна пропасть.
 
     this.setState({
       // Показали результаты поиска
@@ -283,20 +283,17 @@ class App extends React.Component {
   }
 
   // Показывает больше новостей (число передаётся в аргументе)
-  showMoreNews = (count = 3) => {
-    console.log(this.state);
-    // Из списка сохранённых новостей загрузить 3 новости
-    const newsChunk = this.state.foundNews.slice(0, count);
-    // Уменьшить список новостей на эти 3 новости
-    const restOfNews = this.state.foundNews.slice(count, this.state.foundNews.length);
-    // Добавление функции в стейт даёт нам доступ к текущему состоянию внутри самой функции
+  showMoreNews = () => {
+    // Используем функцию в состоянии, иначе значения не обновятся
     this.setState((state) => {
-      console.log(state);
-
+      // Из списка сохранённых новостей отрезать новости с 0 по 3
+      const newsChunk = state.foundNews.slice(0, 3);
+      // Отрезать список начиная с 3 пункта
+      const restOfNews = state.foundNews.slice(3, state.foundNews.length + 1);
       return {
-        // Добавить эти три новости в список новостей для показа
-        newsList: [...state.newsList, ...newsChunk],
-        // Обновить список новостей в кеше
+        // Перезаписать список новостей в состоянии
+        newsList: [...this.state.newsList, ...newsChunk],
+        // Перезаписать список найденных новостей
         foundNews: restOfNews,
       };
     }, () => {
@@ -305,9 +302,6 @@ class App extends React.Component {
         // Если новости закончились, выключаем кнопку, иначе включаем
         isShowMoreButtonActive: this.state.foundNews.length > 0,
       });
-
-      console.log(this.state.newsList);
-      console.log(this.state.foundNews);
     });
   }
 

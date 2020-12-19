@@ -10,4 +10,4 @@ export const newsApiUrl = 'http://newsapi.org/v2/';
 export const newsApiYandexUrl = 'https://nomoreparties.co/news/v2/';
 
 // Мой личный ключ api новостей
-export const newsApiKey = '7509cf524ae942ba84fcf8643e3e9650';
+export const newsApiKey = 'cd3259f0c43e4e0aa7d1d77d8cb9ef12';
