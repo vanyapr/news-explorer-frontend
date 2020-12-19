@@ -1,9 +1,10 @@
 import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom'; // Компоненты для роутинга и редиректа
+import './App.css';
 import Auth from '../../utils/Auth'; // Апи авторизации
 import MainApi from '../../utils/MainApi'; // Основное апи
 import NewsApi from '../../utils/NewsApi'; // Апи новостей
-import './App.css';
+import utils from '../../utils/utils';
 import Header from '../Header/Header'; // Шапка
 import Main from '../Main/Main'; // Главная страница
 import SavedNews from '../SavedNews/SavedNews'; // Сраница сохранённых новостей
@@ -62,12 +63,11 @@ class App extends React.Component {
   // 1. По 3 новости рендерим на главной
   // 1) Добавление статьи в избранное
   // 1) При нажатии на иконку сохранения статьи неавторизованным пользователем открывается модальное окно с предложением зарегистрироваться
+  // 1. Рендер списка сохранённых карточек
+  // 1. Число сохранённых статей
 
   // TODO:
-  // 1. Рендер списка сохранённых карточек
   // 1) Удаление статьи из избранного
-  // 1. Число сохранённых статей
-  // 1. Число сохранённых статей
   // 1. Ключевые слова сохранённых статей
   // 1) Обернуть компоненты в чистый компонент
 
@@ -140,7 +140,7 @@ class App extends React.Component {
   // Cохраняет данные авторизованного юзера в контекст приложения
   _authoriseUser = (userData, token) => {
     this._setApi(token);
-    this.setState((state) => {
+    this.setState(() => {
       return {
         currentUser: userData,
         isUserLogined: true,
@@ -176,9 +176,12 @@ class App extends React.Component {
         .then((userData) => {
           // Авторизовали юзера в случае успеха
           this._authoriseUser(userData, token);
+          // Когда юзер авторизован, мы можем записать его сохраненные новости в состояние
+          this._getSavedNewsList();
         })
         .catch((error) => {
           // Если токена нет, или авторизация не удалась
+          // Мы не выводим в консоль эту ошибку, потому что это нормальная практика
           // Меняем состояние на неавторизованнное
           this._unauthoriseUser();
           // Удаляем токен, если он есть, но не прошел проверку
@@ -324,19 +327,8 @@ class App extends React.Component {
 
   // Принимает данные статьи, сохраняет статью в избранных у текущего пользователя
   saveToFavorites = (newsItem) => {
-    // Разобрали объект новости
-    const { title, content, publishedAt, source, url, urlToImage } = newsItem;
-
     // Преобразуем в формат совместимый с апи
-    const itemToSave = {
-      keyword: this.state.searchString, // Строка поиска
-      title,
-      text: content,
-      date: publishedAt,
-      source: source.name,
-      link: url,
-      image: urlToImage,
-    };
+    const itemToSave = utils.convertToApiFormat(newsItem, this.state.searchString);
 
     // Передадим её в апи
     return this._api.saveToFavorites(itemToSave, this.state.token)
@@ -350,10 +342,16 @@ class App extends React.Component {
       });
   }
 
+  // Получает по апи список сохраненных новостей
   _getSavedNewsList = () => {
     this._api.getSavedNewsList()
       .then((savedNews) => {
-        console.log(savedNews);
+        // Полученный список сохранённых новостей преобразуем в совместимый формат
+        const newsToDisplay = utils.convertListToAppFormat(savedNews);
+
+        this.setState({
+          savedNewsList: newsToDisplay,
+        });
       }).catch((error) => {
         console.log(error);
       });
@@ -386,7 +384,14 @@ class App extends React.Component {
             />
             <Footer />
           </Route>
-          <ProtectedRoute path='/saved-news' isUserLogined={this.state.isUserLogined} component={SavedNews} isSomePopupOpened={this.state.isSomePopupOpened} closePopup={this.closeAllPopups} logout={this.logoutUser} openLoginPopUp={this.openLoginPopup} />
+          <ProtectedRoute path='/saved-news'
+            isUserLogined={this.state.isUserLogined}
+            component={SavedNews}
+            isSomePopupOpened={this.state.isSomePopupOpened}
+            closePopup={this.closeAllPopups}
+            logout={this.logoutUser}
+            newsList={this.state.savedNewsList}
+            openLoginPopUp={this.openLoginPopup} />
         </Switch>
         <LoginPopup changePopup={this.openRegisterPopup} isLoginPopupOpened={this.state.isLoginPopupOpened} close={this.closeAllPopups} onSubmit={this.loginUser} />
         <RegisterPopup changePopup={this.openLoginPopup} isRegisterPopupOpened={this.state.isRegisterPopupOpened} close={this.closeAllPopups} onSubmit={this.registerUser}/>

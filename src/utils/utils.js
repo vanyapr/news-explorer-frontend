@@ -51,6 +51,52 @@ class Utils {
     // Собираем строку с датой в шаблон
     return `${this._day} ${this._mounthList[this._mounth]} ${this._year}`;
   }
+
+  // Принимает объект, преобразует в формат апи
+  convertToApiFormat(newsItem, searchString) {
+    // Разобрали объект новости
+    const { title, content, publishedAt, source, url, urlToImage } = newsItem;
+
+    // Преобразуем в формат совместимый с апи
+    return {
+      keyword: searchString, // Строка поиска
+      title,
+      text: content,
+      date: publishedAt,
+      source: source.name,
+      link: url,
+      image: urlToImage,
+    };
+  }
+
+  // Принимает массив объектов, преобразует в формат приложения
+  convertListToAppFormat(newsList) {
+    return newsList.map((item) => {
+      // Разобрали объект новости
+      const {
+        keyword,
+        title,
+        text,
+        date,
+        source,
+        link,
+        image,
+      } = item;
+
+      // Преобразуем в формат совместимый с приложением
+      return {
+        keyword, // Строка поиска
+        title,
+        content: text,
+        publishedAt: date,
+        source: {
+          name: source,
+        },
+        url: link,
+        urlToImage: image,
+      };
+    });
+  }
 }
 
 export default new Utils();

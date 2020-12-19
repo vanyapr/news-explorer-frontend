@@ -7,6 +7,7 @@ class SavedNewsList extends React.Component {
     return (
       <section className='saved-list' aria-label='Сохранённые новости'>
         <NewsCardList
+          newsList={this.props.newsList}
           showBadge={true}
           buttonType='delete'
           tooltipText='Убрать из сохранённых'/>

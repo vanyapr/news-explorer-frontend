@@ -12,8 +12,8 @@ class SavedNews extends React.Component {
       <>
         <Header isSomePopupOpened={this.props.isSomePopupOpened} closePopup={this.props.closeAllPopups} logout={this.props.logout} openLoginPopUp={this.props.openLoginPopup} />
         <main className='saved'>
-          <SavedNewsHeader />
-          <SavedNewsList />
+          <SavedNewsHeader newsList={this.props.newsList} />
+          <SavedNewsList newsList={this.props.newsList} />
           <About />
         </main>
         <Footer />

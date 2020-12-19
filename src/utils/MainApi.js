@@ -24,7 +24,7 @@ class MainApi {
 
   getSavedNewsList() {
     return fetch(`${this.apiUrl}/articles`, {
-      method: 'POST',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this._token}`,
