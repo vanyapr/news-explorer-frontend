@@ -24,10 +24,10 @@ class NewsCardButton extends React.Component {
     });
   }
 
-  // card__button_type_bookmark_state_active
   handleButtonPress = () => {
-    // Проверить, авторизован ли юзер
-    if (this.context) {
+    // Проверить, авторизован ли юзер и является ли кнопка кнопкой удаления
+    // В этом состоянии мы добавляем новость в избранное
+    if (this.context && !(this.props.buttonType === 'delete')) {
       // Если юзер авторизован, мы добавляем карточку в избранное
       this.props.saveToFavorites(this.props.card).then((success) => {
         // Перевели состояние кнопки в "нажатое"
@@ -38,9 +38,6 @@ class NewsCardButton extends React.Component {
         // Просто выведем ошибку в консоль в случае ошибки
         console.log(error);
       });
-      // FIXME console.log('Нажали кнопку');
-      // console.log(this.context);
-      // console.log(this.props.card);
     } else {
       // Если юзер не авторизован, мы открываем попап регистрации
       this.props.openLoginPopup();

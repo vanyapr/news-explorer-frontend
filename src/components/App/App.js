@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom'; // Компоненты для роутинга и редиректа
+import Auth from '../../utils/Auth'; // Апи авторизации
 import MainApi from '../../utils/MainApi'; // Основное апи
 import NewsApi from '../../utils/NewsApi'; // Апи новостей
 import './App.css';
@@ -35,6 +36,7 @@ class App extends React.Component {
       isSearchResultVisible: false, // Виден ли блок результатов поиска
       foundNews: [], // Список найденных новостей
       newsList: [], // Список новостей для показа
+      savedNewsList: [], // Список сохранённых новостей
     };
   }
 
@@ -58,15 +60,16 @@ class App extends React.Component {
   // 1. Если новости найдены, показать кнопку "ещё"
   // 1. Когда все карточки отрисованы, кнопка «Показать ещё» должна пропасть.
   // 1. По 3 новости рендерим на главной
+  // 1) Добавление статьи в избранное
+  // 1) При нажатии на иконку сохранения статьи неавторизованным пользователем открывается модальное окно с предложением зарегистрироваться
 
   // TODO:
-  // 1) Добавление статьи в избранное
+  // 1. Рендер списка сохранённых карточек
   // 1) Удаление статьи из избранного
   // 1. Число сохранённых статей
   // 1. Число сохранённых статей
   // 1. Ключевые слова сохранённых статей
   // 1) Обернуть компоненты в чистый компонент
-  // 1) При нажатии на иконку сохранения статьи неавторизованным пользователем открывается модальное окно с предложением зарегистрироваться
 
   // FIXME
   // 0) Обрезать строку поиска в тултипе строки поиска в сохраненных статьях
@@ -77,10 +80,15 @@ class App extends React.Component {
   // - если не авторизован
   // - открыть попап
 
+  // Принимает токен, инициализирует экземпляр апи
+  _setApi = (token) => {
+    this._api = new MainApi(token);
+  }
+
   // Авторизует пользователя по переданным в JSON данным
   loginUser = (loginData) => {
     // Возвращаем промис чтобы передать ошибку в форму
-    return MainApi.login(loginData)
+    return Auth.login(loginData)
       .then((responce) => {
         // Если ответ получен, обработали
         if (responce) {
@@ -107,7 +115,7 @@ class App extends React.Component {
 
   // Регистрирует пользователя по переданным в JSON данным
   registerUser = (userData) => {
-    return MainApi.register(userData)
+    return Auth.register(userData)
       .then((responce) => {
         // Если ответ получен, обработали
         if (responce) {
@@ -131,6 +139,7 @@ class App extends React.Component {
 
   // Cохраняет данные авторизованного юзера в контекст приложения
   _authoriseUser = (userData, token) => {
+    this._setApi(token);
     this.setState((state) => {
       return {
         currentUser: userData,
@@ -153,7 +162,7 @@ class App extends React.Component {
   // Получает данные пользователя из апи
   _getUserData = (token) => {
     // Запросили данные по апи
-    return MainApi.getUserData(token);
+    return Auth.getUserData(token);
   }
 
   // Проверяет токен и в случае его корректности авторизует юзера и сохраняет токен в состоянии
@@ -330,7 +339,7 @@ class App extends React.Component {
     };
 
     // Передадим её в апи
-    return MainApi.saveToFavorites(itemToSave, this.state.token)
+    return this._api.saveToFavorites(itemToSave, this.state.token)
       .then((savingResult) => {
         // Чтобы установить состояние кнопки на "активная" вернём результат
         return savingResult;
@@ -338,6 +347,15 @@ class App extends React.Component {
       .catch((error) => {
         // В случае ошибки вернём реджект
         return Promise.reject(new Error('Что-то пошло не так'));
+      });
+  }
+
+  _getSavedNewsList = () => {
+    this._api.getSavedNewsList()
+      .then((savedNews) => {
+        console.log(savedNews);
+      }).catch((error) => {
+        console.log(error);
       });
   }
 

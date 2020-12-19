@@ -6,7 +6,10 @@ class SavedNewsList extends React.Component {
   render() {
     return (
       <section className='saved-list' aria-label='Сохранённые новости'>
-        <NewsCardList showBadge={true} buttonType='delete' tooltipText='Убрать из сохранённых'/>
+        <NewsCardList
+          showBadge={true}
+          buttonType='delete'
+          tooltipText='Убрать из сохранённых'/>
       </section>
     );
   }
