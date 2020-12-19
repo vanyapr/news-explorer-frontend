@@ -343,6 +343,8 @@ class App extends React.Component {
         const updatedSavedNewsList = [...this.state.savedNewsList, ...savedNewsAddon];
         this.setState({
           savedNewsList: updatedSavedNewsList,
+        }, () => {
+          this._fillSavedNewsHeader(updatedSavedNewsList);
         });
 
         return savingResult;
@@ -363,7 +365,7 @@ class App extends React.Component {
         this.setState({
           savedNewsList: newsToDisplay,
         }, () => {
-          this._fillSavedNewsHeader();
+          this._fillSavedNewsHeader(newsToDisplay);
         });
       }).catch((error) => {
         console.log(error);
@@ -377,7 +379,7 @@ class App extends React.Component {
       this.setState({
         savedNewsList: updatedNewssList,
       }, () => {
-        this._fillSavedNewsHeader();
+        this._fillSavedNewsHeader(updatedNewssList);
       });
     }).catch((error) => {
       // В случае ошибки удаления, вывели её в консоль
@@ -386,14 +388,14 @@ class App extends React.Component {
   }
 
   // Сформировать значения для шапки сохраненных статей
-  _fillSavedNewsHeader = () => {
+  _fillSavedNewsHeader = (newsList) => {
+    // Вывести первые 2 уникальных слова
     // Собрать все ключевые слова в массив
     const keywords = [];
-    this.state.savedNewsList.forEach((item) => {
+    newsList.forEach((item) => {
       keywords.push(item.keyword);
     });
 
-    // Вывести первые 2 уникальных слова
     // Отфильтровать массив на уникальные значения
     const uniqueKeywords = keywords.filter((item, index, array) => {
       // Вернуть только те значения, у которых
@@ -411,11 +413,13 @@ class App extends React.Component {
       return 0;
     });
 
-    // Посчитать длину массива
+    // Посчитать длину массива чобы узнать сколько сохранено новостей
     const lastDigitOfKeywordsCount = 1 * this.state.savedNewsList.length.toString().slice(-1);
 
-    let articlesWord = ''; // Слово "Статей"
+    // Переменная для слова "статей"
+    let articlesWord = '';
 
+    // Рассчитываем окончание предложения
     switch (lastDigitOfKeywordsCount) {
     case 1:
       articlesWord = 'сохранённая статья';
@@ -430,28 +434,45 @@ class App extends React.Component {
     }
 
     // Статей/статьи/статья
-    const keywordsList = `${sortedUniqueKeywords[0]}, ${sortedUniqueKeywords[1]}`;
+    let keywordsList = '';
+    if (uniqueKeywords.length > 1) {
+      keywordsList = `${sortedUniqueKeywords[0]}, ${sortedUniqueKeywords[1]}`;
+    } else if (uniqueKeywords.length === 1) {
+      keywordsList = `${sortedUniqueKeywords[0]}`;
+    } else {
+      keywordsList = false;
+    }
 
     // Окончание числа ключивых слов
-    const keywordsRest = this.state.savedNewsList.length - 2;
+    let keywordsRest = 0;
+    if (uniqueKeywords.length > 1) {
+      keywordsRest = uniqueKeywords.length - 2;
+    } else {
+      keywordsRest = 0;
+    }
+
     const lastDigitOfRest = 1 * (keywordsRest.toString().slice(-1));
     let keywordsRestEnding = '';
 
+    console.log(lastDigitOfRest);
     switch (lastDigitOfRest) {
     case 1:
-      keywordsRestEnding = '-му другому';
+      keywordsRestEnding = `${keywordsRest}-му другому`;
       break;
     case 2:
     case 3:
     case 4:
-      keywordsRestEnding = '-м другим';
+      keywordsRestEnding = `${keywordsRest}-м другим`;
       break;
     case 7:
     case 8:
-      keywordsRestEnding = '-ми другим';
+      keywordsRestEnding = `${keywordsRest}-ми другим`;
+      break;
+    case 0 && keywordsRest === 0:
+      keywordsRestEnding = `${keywordsRest} других`;
       break;
     default:
-      keywordsRestEnding = '-ти другим';
+      keywordsRestEnding = `${keywordsRest}-ти другим`;
     }
 
     this.setState({

@@ -27,4 +27,4 @@ class NewsApi {
 }
 
 // Экспортировали экземпляр класса
-export default new NewsApi(newsApiUrl, newsApiKey, Utils);
+export default new NewsApi(newsApiYandexUrl, newsApiKey, Utils);
