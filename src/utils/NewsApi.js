@@ -8,7 +8,7 @@ class NewsApi {
     this._processResponse = Utils.processResponse;
     this._catchErrors = Utils.catchErrors;
     this._calculateDate = Utils.calculateDate;
-    this._pageSize = 100;
+    this._pageSize = 10;
     this._daysBefore = daysBefore;
   }
 

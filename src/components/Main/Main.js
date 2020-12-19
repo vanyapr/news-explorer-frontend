@@ -18,6 +18,7 @@ class Main extends React.Component {
           searchErrorHeading={this.props.searchErrorHeading}
           searchErrorText={this.props.searchErrorText}
           newsList={this.props.newsList}
+          showMoreNews={this.props.showMoreNews}
         />}
         <About />
       </main>

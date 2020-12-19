@@ -19,7 +19,7 @@ class SearchResult extends React.Component {
           {this.props.isSearchErrorVisible && <NotFound searchErrorHeading={this.props.searchErrorHeading} searchErrorText={this.props.searchErrorText}/>}
         </div>
         {this.props.isShowMoreButtonVisible && <div className="search-result__button-container">
-          <button className={this.props.isShowMoreButtonActive ? 'search-result__button' : 'search-result__button search-result__button_state_disabled'} disabled={this.props.isShowMoreButtonActive}>Показать еще</button>
+          <button onClick={this.props.showMoreNews} className={this.props.isShowMoreButtonActive ? 'search-result__button' : 'search-result__button search-result__button_state_disabled'} disabled={!this.props.isShowMoreButtonActive}>Показать еще</button>
         </div>}
       </section>
     );

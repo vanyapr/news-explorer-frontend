@@ -231,7 +231,9 @@ class App extends React.Component {
     this.setState({
       // Показали результаты поиска
       isSearchResultVisible: true,
+      isSearchErrorVisible: false,
       isLoadSpinnerVisible: true,
+      isShowMoreButtonVisible: false,
       // Очистили текущий список карточек
       newsList: [],
       foundNews: [],
@@ -243,6 +245,7 @@ class App extends React.Component {
             this.setState({
               isLoadSpinnerVisible: false,
               isSearchErrorVisible: true,
+              isShowMoreButtonVisible: false,
               searchErrorHeading: 'Ничего не найдено',
               searchErrorText: 'К сожалению по вашему запросу ничего не найдено.',
             });
@@ -252,9 +255,9 @@ class App extends React.Component {
               // Если новости найдены, спиннер можно скрыть
               isLoadSpinnerVisible: false,
               isSearchErrorVisible: false,
+              isShowMoreButtonVisible: true,
               searchErrorHeading: '',
               searchErrorText: '',
-              isShowMoreButtonActive: 'true',
               // Записали данные новостей в состояние компонента
               foundNews: news.articles,
             }, () => {
@@ -271,6 +274,7 @@ class App extends React.Component {
             // Если новости не найдены, спиннер можно скрыть
             isLoadSpinnerVisible: false,
             isSearchErrorVisible: true,
+            isShowMoreButtonVisible: false,
             searchErrorHeading: 'Во время запроса произошла ошибка',
             searchErrorText: 'Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.',
           });
@@ -278,22 +282,30 @@ class App extends React.Component {
     });
   }
 
-
+  // Показывает больше новостей (число передаётся в аргументе)
   showMoreNews = (count = 3) => {
-    // Проверить. хватит ли длины массива
-    // Если длины не хватает, выключаем кнопку
+    console.log(this.state);
     // Из списка сохранённых новостей загрузить 3 новости
     const newsChunk = this.state.foundNews.slice(0, count);
     // Уменьшить список новостей на эти 3 новости
     const restOfNews = this.state.foundNews.slice(count, this.state.foundNews.length);
-    // console.log(newsChunk);
-    // console.log(restOfNews);
-    this.setState({
-      // Добавить эти три новости в список новостей для показа
-      newsList: [...this.state.newsList, ...newsChunk],
-      // Обновить список новостей в кеше
-      foundNews: restOfNews,
+    // Добавление функции в стейт даёт нам доступ к текущему состоянию внутри самой функции
+    this.setState((state) => {
+      console.log(state);
+
+      return {
+        // Добавить эти три новости в список новостей для показа
+        newsList: [...state.newsList, ...newsChunk],
+        // Обновить список новостей в кеше
+        foundNews: restOfNews,
+      };
     }, () => {
+      // После изменения стейта новостей проверим, не закончились ли новости в переменной foundNews
+      this.setState({
+        // Если новости закончились, выключаем кнопку, иначе включаем
+        isShowMoreButtonActive: this.state.foundNews.length > 0,
+      });
+
       console.log(this.state.newsList);
       console.log(this.state.foundNews);
     });
@@ -320,6 +332,7 @@ class App extends React.Component {
               handleSearchSubmit={this.handleSearchSubmit}
               newsList={this.state.newsList}
               isSearchVisible={this.state.isSearchResultVisible}
+              showMoreNews={this.showMoreNews}
             />
             <Footer />
           </Route>
