@@ -453,8 +453,8 @@ class App extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    // Отследили был ли редирект?
-    if (this.props.location !== prevProps.location) {
+    // Отследили был ли редирект? Залогинен ли юзер?
+    if ((this.props.location !== prevProps.location) && !this.state.isUserLogined) {
       this.openLoginPopup();
     }
   }
