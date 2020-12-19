@@ -16,6 +16,7 @@ class NewsCardList extends React.Component {
             tooltipText={this.props.tooltipText}
             openLoginPopup={this.props.openLoginPopup}
             saveToFavorites={this.props.saveToFavorites}
+            deleteCard={this.props.deleteCard}
           />
         )) }
       </ul>

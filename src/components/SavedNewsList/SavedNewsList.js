@@ -10,7 +10,9 @@ class SavedNewsList extends React.Component {
           newsList={this.props.newsList}
           showBadge={true}
           buttonType='delete'
-          tooltipText='Убрать из сохранённых'/>
+          tooltipText='Убрать из сохранённых'
+          deleteCard={this.props.deleteCard}
+        />
       </section>
     );
   }

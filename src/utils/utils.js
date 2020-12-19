@@ -81,6 +81,7 @@ class Utils {
         source,
         link,
         image,
+        _id,
       } = item;
 
       // Преобразуем в формат совместимый с приложением
@@ -94,6 +95,7 @@ class Utils {
         },
         url: link,
         urlToImage: image,
+        _id,
       };
     });
   }

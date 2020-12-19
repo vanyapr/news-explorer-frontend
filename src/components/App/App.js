@@ -38,6 +38,10 @@ class App extends React.Component {
       foundNews: [], // Список найденных новостей
       newsList: [], // Список новостей для показа
       savedNewsList: [], // Список сохранённых новостей
+      articlesWord: '',
+      keywordsList: '',
+      keywordsRest: 0,
+      keywordsRestEnding: '',
     };
   }
 
@@ -65,14 +69,14 @@ class App extends React.Component {
   // 1) При нажатии на иконку сохранения статьи неавторизованным пользователем открывается модальное окно с предложением зарегистрироваться
   // 1. Рендер списка сохранённых карточек
   // 1. Число сохранённых статей
+  // 1. Ключевые слова сохранённых статей
+  // 1) Удаление статьи из избранного
+  // 0) Обрезать строку поиска в тултипе строки поиска в сохраненных статьях
 
   // TODO:
-  // 1) Удаление статьи из избранного
-  // 1. Ключевые слова сохранённых статей
   // 1) Обернуть компоненты в чистый компонент
 
   // FIXME
-  // 0) Обрезать строку поиска в тултипе строки поиска в сохраненных статьях
   // 1) Когда редиректим из /saved-news неавторизованного юзера на страницу /
   // - надо открывать попап авторизации:
   // - когда юзер открывает роут
@@ -331,14 +335,21 @@ class App extends React.Component {
     const itemToSave = utils.convertToApiFormat(newsItem, this.state.searchString);
 
     // Передадим её в апи
-    return this._api.saveToFavorites(itemToSave, this.state.token)
+    return this._api.saveToFavorites(itemToSave)
       .then((savingResult) => {
-        // Чтобы установить состояние кнопки на "активная" вернём результат
+        // Конвертировали полученный результат в формат приложения
+        const savedNewsAddon = utils.convertListToAppFormat([savingResult]);
+        // Обновили список карточек в состоянии
+        const updatedSavedNewsList = [...this.state.savedNewsList, ...savedNewsAddon];
+        this.setState({
+          savedNewsList: updatedSavedNewsList,
+        });
+
         return savingResult;
       })
       .catch((error) => {
         // В случае ошибки вернём реджект
-        return Promise.reject(new Error('Что-то пошло не так'));
+        return Promise.reject(new Error(`Что-то пошло не так ${error}`));
       });
   }
 
@@ -351,10 +362,104 @@ class App extends React.Component {
 
         this.setState({
           savedNewsList: newsToDisplay,
+        }, () => {
+          this._fillSavedNewsHeader();
         });
       }).catch((error) => {
         console.log(error);
       });
+  }
+
+  deleteFromFavorites = (newsId) => {
+    // При удалении карточки мы удаляем из состояния карточку с нужным ID
+    this._api.deleteNewsItem(newsId).then((deletionResult) => {
+      const updatedNewssList = this.state.savedNewsList.filter((item) => item._id !== newsId);
+      this.setState({
+        savedNewsList: updatedNewssList,
+      }, () => {
+        this._fillSavedNewsHeader();
+      });
+    }).catch((error) => {
+      // В случае ошибки удаления, вывели её в консоль
+      console.log(error);
+    });
+  }
+
+  // Сформировать значения для шапки сохраненных статей
+  _fillSavedNewsHeader = () => {
+    // Собрать все ключевые слова в массив
+    const keywords = [];
+    this.state.savedNewsList.forEach((item) => {
+      keywords.push(item.keyword);
+    });
+
+    // Вывести первые 2 уникальных слова
+    // Отфильтровать массив на уникальные значения
+    const uniqueKeywords = keywords.filter((item, index, array) => {
+      // Вернуть только те значения, у которых
+      return array.indexOf(item) === index;
+    });
+
+    // Отсортировать массив по алфавиту
+    const sortedUniqueKeywords = uniqueKeywords.sort((a, b) => {
+      if (a < b) {
+        return -1;
+      }
+      if (a > b) {
+        return 1;
+      }
+      return 0;
+    });
+
+    // Посчитать длину массива
+    const lastDigitOfKeywordsCount = 1 * this.state.savedNewsList.length.toString().slice(-1);
+
+    let articlesWord = ''; // Слово "Статей"
+
+    switch (lastDigitOfKeywordsCount) {
+    case 1:
+      articlesWord = 'сохранённая статья';
+      break;
+    case 2:
+    case 3:
+    case 4:
+      articlesWord = 'сохранённых статьи';
+      break;
+    default:
+      articlesWord = 'сохранённых статей';
+    }
+
+    // Статей/статьи/статья
+    const keywordsList = `${sortedUniqueKeywords[0]}, ${sortedUniqueKeywords[1]}`;
+
+    // Окончание числа ключивых слов
+    const keywordsRest = this.state.savedNewsList.length - 2;
+    const lastDigitOfRest = 1 * (keywordsRest.toString().slice(-1));
+    let keywordsRestEnding = '';
+
+    switch (lastDigitOfRest) {
+    case 1:
+      keywordsRestEnding = '-му другому';
+      break;
+    case 2:
+    case 3:
+    case 4:
+      keywordsRestEnding = '-м другим';
+      break;
+    case 7:
+    case 8:
+      keywordsRestEnding = '-ми другим';
+      break;
+    default:
+      keywordsRestEnding = '-ти другим';
+    }
+
+    this.setState({
+      articlesWord,
+      keywordsList,
+      keywordsRest,
+      keywordsRestEnding,
+    });
   }
 
   componentDidMount() {
@@ -391,7 +496,13 @@ class App extends React.Component {
             closePopup={this.closeAllPopups}
             logout={this.logoutUser}
             newsList={this.state.savedNewsList}
-            openLoginPopUp={this.openLoginPopup} />
+            openLoginPopUp={this.openLoginPopup}
+            deleteCard={this.deleteFromFavorites}
+            articlesWord={this.state.articlesWord}
+            keywordsList={this.state.keywordsList}
+            keywordsRest={this.state.keywordsRest}
+            keywordsRestEnding={this.state.keywordsRestEnding}
+          />
         </Switch>
         <LoginPopup changePopup={this.openRegisterPopup} isLoginPopupOpened={this.state.isLoginPopupOpened} close={this.closeAllPopups} onSubmit={this.loginUser} />
         <RegisterPopup changePopup={this.openLoginPopup} isRegisterPopupOpened={this.state.isRegisterPopupOpened} close={this.closeAllPopups} onSubmit={this.registerUser}/>

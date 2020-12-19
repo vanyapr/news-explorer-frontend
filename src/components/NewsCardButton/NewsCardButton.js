@@ -38,6 +38,9 @@ class NewsCardButton extends React.Component {
         // Просто выведем ошибку в консоль в случае ошибки
         console.log(error);
       });
+    } else if (this.context && this.props.buttonType === 'delete') {
+      // Удаляем карточку, нажата кнопка удаления
+      this.props.deleteCard(this.props.card._id);
     } else {
       // Если юзер не авторизован, мы открываем попап регистрации
       this.props.openLoginPopup();

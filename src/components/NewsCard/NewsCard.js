@@ -32,7 +32,14 @@ class NewsCard extends React.Component {
         </div>
         <p className="card__source">{this.props.card.source.name}</p>
         <p className="card__date"><time className="date_range small" dateTime={this.props.card.publishedAt}>{this._beautyDate}</time></p>
-        <NewsCardButton card={this.props.card} saveToFavorites={this.props.saveToFavorites} openLoginPopup={this.props.openLoginPopup} buttonType={this.props.buttonType} tooltipText={this.props.tooltipText}/>
+        <NewsCardButton
+          deleteCard={this.props.deleteCard}
+          card={this.props.card}
+          saveToFavorites={this.props.saveToFavorites}
+          openLoginPopup={this.props.openLoginPopup}
+          buttonType={this.props.buttonType}
+          tooltipText={this.props.tooltipText}
+        />
         { this.props.card.keyword && <p className="card__badge">{this.props.card.keyword}</p> }
       </li>
     );
