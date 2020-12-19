@@ -1,7 +1,7 @@
 import React from 'react';
 import './SearchForm.css';
 
-class SearchForm extends React.Component {
+class SearchForm extends React.PureComponent {
   handleFormSubmit = (event) => {
     event.preventDefault();
     // Получили значение инпута при сабмите

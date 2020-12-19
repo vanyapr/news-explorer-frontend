@@ -3,7 +3,7 @@ import './Navigation.css';
 import { NavLink } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/currentUserContext'; // Контекст текущего юзера
 
-class Navigation extends React.Component {
+class Navigation extends React.PureComponent {
   static contextType = CurrentUserContext;
   // Поскольку контекст в классовом компоненте может быть только 1,
   // буду использовать значение this.context как булево

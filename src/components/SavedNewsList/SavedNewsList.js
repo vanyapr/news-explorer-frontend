@@ -2,7 +2,7 @@ import React from 'react';
 import NewsCardList from '../NewsCardList/NewsCardList';
 import './SavedNewsList.css';
 
-class SavedNewsList extends React.Component {
+class SavedNewsList extends React.PureComponent {
   render() {
     return (
       <section className='saved-list' aria-label='Сохранённые новости'>

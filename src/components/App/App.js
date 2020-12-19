@@ -15,7 +15,7 @@ import NotificationPopup from '../NotificationPopup/NotificationPopup'; // По�
 import { CurrentUserContext } from '../../contexts/currentUserContext'; // Контекст текущего юзера
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'; // Защищённый роут
 
-class App extends React.Component {
+class App extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -72,9 +72,9 @@ class App extends React.Component {
   // 1. Ключевые слова сохранённых статей
   // 1) Удаление статьи из избранного
   // 0) Обрезать строку поиска в тултипе строки поиска в сохраненных статьях
+  // 1) Обернуть компоненты в чистый компонент
 
   // TODO:
-  // 1) Обернуть компоненты в чистый компонент
 
   // FIXME
   // 1) Когда редиректим из /saved-news неавторизованного юзера на страницу /
@@ -191,8 +191,10 @@ class App extends React.Component {
           // Удаляем токен, если он есть, но не прошел проверку
           this._deleteToken();
         });
+    } else {
+      // Если токена нет, покажем окно авторизации
+      this.openLoginPopup();
     }
-    // Если токена нет, ничего не делаем
   }
 
   // Записать токен в localstorage
@@ -435,7 +437,10 @@ class App extends React.Component {
 
     // Статей/статьи/статья
     let keywordsList = '';
-    if (uniqueKeywords.length > 1) {
+    if (uniqueKeywords.length === 3) {
+      // Если статей три, надо показывать все три
+      keywordsList = `${sortedUniqueKeywords[0]}, ${sortedUniqueKeywords[1]}, ${sortedUniqueKeywords[2]}`;
+    } else if (uniqueKeywords.length > 1) {
       keywordsList = `${sortedUniqueKeywords[0]}, ${sortedUniqueKeywords[1]}`;
     } else if (uniqueKeywords.length === 1) {
       keywordsList = `${sortedUniqueKeywords[0]}`;
@@ -445,7 +450,7 @@ class App extends React.Component {
 
     // Окончание числа ключивых слов
     let keywordsRest = 0;
-    if (uniqueKeywords.length > 1) {
+    if (uniqueKeywords.length > 3) {
       keywordsRest = uniqueKeywords.length - 2;
     } else {
       keywordsRest = 0;

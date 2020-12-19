@@ -1,7 +1,7 @@
 import React from 'react';
 import './Popup.css';
 
-class Popup extends React.Component {
+class Popup extends React.PureComponent {
   handleClose = (event) => {
     if (event.target.classList.contains('popup_opened') || event.target.className === 'popup__close') {
       this.props.close();

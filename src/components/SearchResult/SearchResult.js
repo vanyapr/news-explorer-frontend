@@ -4,7 +4,7 @@ import NewsCardList from '../NewsCardList/NewsCardList';
 import Preloader from '../Preloader/Preloader';
 import NotFound from '../NotFound/NotFound';
 
-class SearchResult extends React.Component {
+class SearchResult extends React.PureComponent {
   render() {
     return (
       <section className='search-result'>

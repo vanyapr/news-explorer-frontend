@@ -3,7 +3,7 @@ import './About.css';
 import author from '../../images/author.jpg';
 import author2x from '../../images/author@2x.jpg';
 
-class About extends React.Component {
+class About extends React.PureComponent {
   render() {
     return (
       <>

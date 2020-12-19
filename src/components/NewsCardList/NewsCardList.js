@@ -2,7 +2,7 @@ import React from 'react';
 import './NewsCardList.css';
 import NewsCard from '../NewsCard/NewsCard';
 
-class NewsCardList extends React.Component {
+class NewsCardList extends React.PureComponent {
   render() {
     return (
       <ul className="card-list">

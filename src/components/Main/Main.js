@@ -4,7 +4,7 @@ import About from '../About/About';
 import SearchForm from '../SearchForm/SearchForm';
 import SearchResult from '../SearchResult/SearchResult';
 
-class Main extends React.Component {
+class Main extends React.PureComponent {
   render() {
     return (
       <main className='main'>

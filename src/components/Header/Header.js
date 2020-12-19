@@ -3,7 +3,7 @@ import './Header.css';
 import { Link } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 
-class Header extends React.Component {
+class Header extends React.PureComponent {
   constructor(props) {
     super(props);
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import './NotFound.css';
 
-class NotFound extends React.Component {
+class NotFound extends React.PureComponent {
   render() {
     return (
       <div className='not-found'>

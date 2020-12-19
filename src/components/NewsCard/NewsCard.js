@@ -5,7 +5,7 @@ import Utils from '../../utils/utils';
 
 import './NewsCard.css';
 
-class NewsCard extends React.Component {
+class NewsCard extends React.PureComponent {
   constructor(props) {
     super(props);
     // Объявили внешнюю функцию обработки даты

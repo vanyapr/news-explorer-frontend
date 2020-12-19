@@ -7,7 +7,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
-class SavedNews extends React.Component {
+class SavedNews extends React.PureComponent {
   render() {
     return (
       <>

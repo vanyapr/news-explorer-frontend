@@ -3,7 +3,7 @@ import './RegisterPopup.css';
 import Popup from '../Popup/Popup';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 
-class RegisterPopup extends React.Component {
+class RegisterPopup extends React.PureComponent {
   constructor(props) {
     super(props);
 

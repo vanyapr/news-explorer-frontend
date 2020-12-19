@@ -2,7 +2,7 @@ import React from 'react';
 import './NotificationPopup.css';
 import Popup from '../Popup/Popup';
 
-class NotificationPopup extends React.Component {
+class NotificationPopup extends React.PureComponent {
   render() {
     return (
       <>

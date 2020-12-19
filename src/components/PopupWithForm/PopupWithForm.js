@@ -1,7 +1,7 @@
 import React from 'react';
 import './PopupWithForm.css';
 
-class PopupWithForm extends React.Component {
+class PopupWithForm extends React.PureComponent {
   handleLinkClick = (event) => {
     event.preventDefault();
     this.props.changePopup();

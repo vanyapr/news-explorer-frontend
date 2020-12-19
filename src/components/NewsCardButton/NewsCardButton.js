@@ -2,7 +2,7 @@ import React from 'react';
 import './NewsCardButton.css';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
 
-class NewsCardButton extends React.Component {
+class NewsCardButton extends React.PureComponent {
   constructor(props) {
     super(props);
 

@@ -2,7 +2,7 @@ import React from 'react';
 import './SavedNewsHeader.css';
 import { CurrentUserContext } from '../../contexts/currentUserContext'; // Контекст текущего юзера
 
-class SavedNewsHeader extends React.Component {
+class SavedNewsHeader extends React.PureComponent {
   static contextType = CurrentUserContext;
 
   _countRestKeywords() {

@@ -3,7 +3,7 @@ import './LoginPopup.css';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import Popup from '../Popup/Popup';
 
-class LoginPopup extends React.Component {
+class LoginPopup extends React.PureComponent {
   constructor(props) {
     super(props);
 
