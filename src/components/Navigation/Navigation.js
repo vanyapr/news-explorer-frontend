@@ -5,6 +5,8 @@ import { CurrentUserContext } from '../../contexts/currentUserContext'; // Ко�
 
 class Navigation extends React.Component {
   static contextType = CurrentUserContext;
+  // Поскольку контекст в классовом компоненте может быть только 1,
+  // буду использовать значение this.context как булево
 
   render() {
     return (
@@ -14,16 +16,16 @@ class Navigation extends React.Component {
             <NavLink exact to='/' className={`navigation__link ${this.props.theme ? `navigation__link_${this.props.theme}` : ''}`}>Главная</NavLink>
           </li>
 
-          {this.context.name && <li className="navigation__list-item">
+          {this.context && <li className="navigation__list-item">
             <NavLink to='/saved-news' className={`navigation__link ${this.props.theme ? `navigation__link_${this.props.theme}` : ''}`}>Сохранённые статьи</NavLink>
           </li>}
           <li className="navigation__list-item">
-            {this.context.name && <button onClick={this.props.logout} className={`navigation__button ${this.props.theme ? `navigation__button_${this.props.theme}` : ''}`}>
+            {this.context && <button onClick={this.props.logout} className={`navigation__button ${this.props.theme ? `navigation__button_${this.props.theme}` : ''}`}>
               {this.context.name}
               <i className={`navigation__button-icon-logout ${this.props.theme ? `navigation__button-icon-logout_${this.props.theme}` : ''}`}>Выйти</i>
             </button>
             }
-            {!this.context.name && <button onClick={this.props.openLoginPopUp} className={`navigation__button ${this.props.theme ? `navigation__button_${this.props.theme}` : ''}`}>
+            {!this.context && <button onClick={this.props.openLoginPopUp} className={`navigation__button ${this.props.theme ? `navigation__button_${this.props.theme}` : ''}`}>
               Авторизоваться
             </button>
             }

@@ -19,7 +19,8 @@ class App extends React.Component {
 
     this.state = {
       isUserLogined: false, // Авторизован ли юзер
-      currentUser: {}, // Текущий пользователь (объект)
+      token: '',
+      currentUser: false, // Текущий пользователь (объект)
       isLoginPopupOpened: false, // Открыт ли попап логина
       isRegisterPopupOpened: false, // Открыт ли попап регистрации
       isNotificationPopupOpened: false, //
@@ -28,8 +29,9 @@ class App extends React.Component {
       isSearchErrorVisible: false, // Видима ли ошибка поиска
       searchErrorHeading: '', // Заголовок ошибки поиска
       searchErrorText: '', // Текст ошибки поиска
-      isShowMoreButtonVisible: false,
-      isShowMoreButtonActive: false,
+      searchString: '', // Текущее значение строки поиска
+      isShowMoreButtonVisible: false, // Показывается ли кнопка поиска
+      isShowMoreButtonActive: false, // Активна ли кнопка поиска
       isSearchResultVisible: false, // Виден ли блок результатов поиска
       foundNews: [], // Список найденных новостей
       newsList: [], // Список новостей для показа
@@ -48,17 +50,26 @@ class App extends React.Component {
   // 1) После логаута редиректить на /
   // 1. Подключение по апи
   // 1) Поиск статей
+  // 1. Показать лоадер
+  // 1. Выполнить запрос
+  // 1. Скрыть лоадер
+  // 1. В случае ошибки показать ошибку
+  // 1. Показать блок "Результаты поиска"
+  // 1. Если новости найдены, показать кнопку "ещё"
+  // 1. Когда все карточки отрисованы, кнопка «Показать ещё» должна пропасть.
+  // 1. По 3 новости рендерим на главной
 
   // TODO:
-  // 1) По 3 штуки рендерим на главной
-  // 1. Число сохранённых статей
-  // 1. Ключевые слова сохранённых статей
   // 1) Добавление статьи в избранное
   // 1) Удаление статьи из избранного
+  // 1. Число сохранённых статей
+  // 1. Число сохранённых статей
+  // 1. Ключевые слова сохранённых статей
   // 1) Обернуть компоненты в чистый компонент
   // 1) При нажатии на иконку сохранения статьи неавторизованным пользователем открывается модальное окно с предложением зарегистрироваться
 
   // FIXME
+  // 0) Обрезать строку поиска в тултипе строки поиска в сохраненных статьях
   // 1) Когда редиректим из /saved-news неавторизованного юзера на страницу /
   // - надо открывать попап авторизации:
   // - когда юзер открывает роут
@@ -79,7 +90,7 @@ class App extends React.Component {
           // Получили данные юзера по токену
           this._getUserData(token).then((userData) => {
             // Авторизовали юзера
-            this._authoriseUser(userData);
+            this._authoriseUser(userData, token);
             // Закрыли попап если юзер авторизовался
             this.closeAllPopups();
           }).catch((error) => {
@@ -119,17 +130,20 @@ class App extends React.Component {
   }
 
   // Cохраняет данные авторизованного юзера в контекст приложения
-  _authoriseUser = (userData) => {
-    this.setState({
-      currentUser: userData,
-      isUserLogined: true,
+  _authoriseUser = (userData, token) => {
+    this.setState((state) => {
+      return {
+        currentUser: userData,
+        isUserLogined: true,
+        token,
+      };
     });
   }
 
   // Удаляет данные юзера из приложения и редиректит на главную страницу
   _unauthoriseUser = () => {
     this.setState({
-      currentUser: '',
+      currentUser: false,
       isUserLogined: false,
     }, () => {
       this.props.history.push('/');
@@ -142,7 +156,7 @@ class App extends React.Component {
     return MainApi.getUserData(token);
   }
 
-  // Проверяет токен и в случае его корректности авторизует юзера
+  // Проверяет токен и в случае его корректности авторизует юзера и сохраняет токен в состоянии
   _checkUserToken = () => {
     // Прочитали токен
     const token = this._readToken();
@@ -152,7 +166,7 @@ class App extends React.Component {
       this._getUserData(token)
         .then((userData) => {
           // Авторизовали юзера в случае успеха
-          this._authoriseUser(userData);
+          this._authoriseUser(userData, token);
         })
         .catch((error) => {
           // Если токена нет, или авторизация не удалась
@@ -219,21 +233,13 @@ class App extends React.Component {
 
   // Обрабатывает сабмит формы поиска новостей, принимает строку поиска
   handleSearchSubmit = (searchString) => {
-    // TODO:
-    // + Показать лоадер
-    // + Выполнить запрос
-    // + Скрыть лоадер
-    // + В случае ошибки показать ошибку
-    // + Показать блок "Результаты поиска"
-    // + Если новости найдены, показать кнопку "ещё"
-    // + Когда все карточки отрисованы, кнопка «Показать ещё» должна пропасть.
-
     this.setState({
       // Показали результаты поиска
       isSearchResultVisible: true,
       isSearchErrorVisible: false,
       isLoadSpinnerVisible: true,
       isShowMoreButtonVisible: false,
+      searchString,
       // Очистили текущий список карточек
       newsList: [],
       foundNews: [],
@@ -246,6 +252,7 @@ class App extends React.Component {
               isLoadSpinnerVisible: false,
               isSearchErrorVisible: true,
               isShowMoreButtonVisible: false,
+              searchString: '', // Сбросим строку поиска
               searchErrorHeading: 'Ничего не найдено',
               searchErrorText: 'К сожалению по вашему запросу ничего не найдено.',
             });
@@ -275,6 +282,7 @@ class App extends React.Component {
             isLoadSpinnerVisible: false,
             isSearchErrorVisible: true,
             isShowMoreButtonVisible: false,
+            searchString: '', // Сбросим строку поиска
             searchErrorHeading: 'Во время запроса произошла ошибка',
             searchErrorText: 'Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.',
           });
@@ -282,13 +290,13 @@ class App extends React.Component {
     });
   }
 
-  // Показывает больше новостей (число передаётся в аргументе)
+  // Показывает больше новостей
   showMoreNews = () => {
     // Используем функцию в состоянии, иначе значения не обновятся
     this.setState((state) => {
       // Из списка сохранённых новостей отрезать новости с 0 по 3
       const newsChunk = state.foundNews.slice(0, 3);
-      // Отрезать список начиная с 3 пункта
+      // Отрезать список начиная с 3 пункта и до конца
       const restOfNews = state.foundNews.slice(3, state.foundNews.length + 1);
       return {
         // Перезаписать список новостей в состоянии
@@ -303,6 +311,34 @@ class App extends React.Component {
         isShowMoreButtonActive: this.state.foundNews.length > 0,
       });
     });
+  }
+
+  // Принимает данные статьи, сохраняет статью в избранных у текущего пользователя
+  saveToFavorites = (newsItem) => {
+    // Разобрали объект новости
+    const { title, content, publishedAt, source, url, urlToImage } = newsItem;
+
+    // Преобразуем в формат совместимый с апи
+    const itemToSave = {
+      keyword: this.state.searchString, // Строка поиска
+      title,
+      text: content,
+      date: publishedAt,
+      source: source.name,
+      link: url,
+      image: urlToImage,
+    };
+
+    // Передадим её в апи
+    return MainApi.saveToFavorites(itemToSave, this.state.token)
+      .then((savingResult) => {
+        // Чтобы установить состояние кнопки на "активная" вернём результат
+        return savingResult;
+      })
+      .catch((error) => {
+        // В случае ошибки вернём реджект
+        return Promise.reject(new Error('Что-то пошло не так'));
+      });
   }
 
   componentDidMount() {
@@ -327,6 +363,8 @@ class App extends React.Component {
               newsList={this.state.newsList}
               isSearchVisible={this.state.isSearchResultVisible}
               showMoreNews={this.showMoreNews}
+              openLoginPopup={this.openLoginPopup}
+              saveToFavorites={this.saveToFavorites}
             />
             <Footer />
           </Route>

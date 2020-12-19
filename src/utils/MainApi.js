@@ -46,6 +46,19 @@ class MainApi {
       .then(this._processResponse)
       .catch(this._catchErrors);
   }
+
+  saveToFavorites(newsItem, token) {
+    return fetch(`${this.apiUrl}/articles`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(newsItem),
+    })
+      .then(this._processResponse)
+      .catch(this._catchErrors);
+  }
 }
 
 // Экспортировали экземпляр класса

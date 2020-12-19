@@ -19,6 +19,8 @@ class Main extends React.Component {
           searchErrorText={this.props.searchErrorText}
           newsList={this.props.newsList}
           showMoreNews={this.props.showMoreNews}
+          openLoginPopup={this.props.openLoginPopup}
+          saveToFavorites={this.props.saveToFavorites}
         />}
         <About />
       </main>

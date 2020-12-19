@@ -11,6 +11,8 @@ class SearchResult extends React.Component {
         <h2 className="search-result__heading">Результаты поиска</h2>
         <div className="search-result__cards">
           <NewsCardList
+            openLoginPopup={this.props.openLoginPopup}
+            saveToFavorites={this.props.saveToFavorites}
             newsList={this.props.newsList}
             buttonType='bookmark'
             tooltipText='Войдите чтобы сохранять статьи'
