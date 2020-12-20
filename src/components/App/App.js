@@ -454,6 +454,7 @@ class App extends React.PureComponent {
 
   componentDidUpdate(prevProps) {
     // Отследили был ли редирект? Залогинен ли юзер?
+    // FIXME: Авторизованный юзер при заходе на роут /saved-news получает редирект
     if ((this.props.location !== prevProps.location) && !this.state.isUserLogined) {
       this.openLoginPopup();
     }
