@@ -146,42 +146,40 @@ class RegisterPopup extends React.PureComponent {
 
   render() {
     return (
-      <>
-        <Popup
-          isOpened={this.props.isRegisterPopupOpened}
-          close={this.props.close}
-          title='Регистрация'
-          children={
-            <PopupWithForm
-              changePopup={this.props.changePopup}
-              buttonText='Зарегистрироваться'
-              alternative='Войти'
-              buttonEnabled={this.state.emailValid && this.state.passwordValid && this.state.nameValid}
-              onSubmit={this.handleSubmit}
-              formError={this.state.formError}
-              children={
-                <>
-                  <div className="form__input-container" >
-                    <label htmlFor="email" className="form__input-label">Email</label>
-                    <input value={this.state.email} onChange={this.handleChange} type='email' name='email' id="email" placeholder='Введите почту' className="form__input"/>
-                    {this.state.emailError && <div className="form__input-error">{this.state.emailError}</div>}
-                  </div>
-                  <div className="form__input-container" >
-                    <label htmlFor="password" className="form__input-label">Пароль</label>
-                    <input value={this.state.password} onChange={this.handleChange} type='password' name='password' id="password" placeholder='Введите пароль' className="form__input"/>
-                    {this.state.passwordError && <div className="form__input-error">{this.state.passwordError}</div>}
-                  </div>
-                  <div className="form__input-container" >
-                    <label htmlFor="name" className="form__input-label">Имя</label>
-                    <input value={this.state.name} onChange={this.handleChange} type='text' name='name' id="name" placeholder='Введите своё имя' className="form__input"/>
-                    {this.state.nameError && <div className="form__input-error">{this.state.nameError}</div>}
-                  </div>
-                </>
-              }
-            />
-          }
-        />
-      </>
+      <Popup
+        isOpened={this.props.isRegisterPopupOpened}
+        close={this.props.close}
+        title='Регистрация'
+        children={
+          <PopupWithForm
+            changePopup={this.props.changePopup}
+            buttonText='Зарегистрироваться'
+            alternative='Войти'
+            buttonEnabled={this.state.emailValid && this.state.passwordValid && this.state.nameValid}
+            onSubmit={this.handleSubmit}
+            formError={this.state.formError}
+            children={
+              <>
+                <div className="form__input-container" >
+                  <label htmlFor="email" className="form__input-label">Email</label>
+                  <input value={this.state.email} onChange={this.handleChange} type='email' name='email' id="email" placeholder='Введите почту' className="form__input"/>
+                  {this.state.emailError && <div className="form__input-error">{this.state.emailError}</div>}
+                </div>
+                <div className="form__input-container" >
+                  <label htmlFor="password" className="form__input-label">Пароль</label>
+                  <input value={this.state.password} onChange={this.handleChange} type='password' name='password' id="password" placeholder='Введите пароль' className="form__input"/>
+                  {this.state.passwordError && <div className="form__input-error">{this.state.passwordError}</div>}
+                </div>
+                <div className="form__input-container" >
+                  <label htmlFor="name" className="form__input-label">Имя</label>
+                  <input value={this.state.name} onChange={this.handleChange} type='text' name='name' id="name" placeholder='Введите своё имя' className="form__input"/>
+                  {this.state.nameError && <div className="form__input-error">{this.state.nameError}</div>}
+                </div>
+              </>
+            }
+          />
+        }
+      />
     );
   }
 }

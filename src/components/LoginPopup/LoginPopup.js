@@ -111,37 +111,35 @@ class LoginPopup extends React.PureComponent {
 
   render() {
     return (
-      <>
-        <Popup
-          isOpened={this.props.isLoginPopupOpened}
-          close={this.props.close}
-          title='Вход'
-          children={
-            <PopupWithForm
-              changePopup={this.props.changePopup}
-              buttonText='Войти'
-              buttonEnabled={this.state.emailValid && this.state.passwordValid}
-              alternative='Зарегистрироваться'
-              onSubmit={this.handleSubmit}
-              formError={this.state.formError}
-              children={
-                <>
-                  <div className="form__input-container" >
-                    <label htmlFor="login-email" className="form__input-label">Email</label>
-                    <input value={this.state.email} onChange={this.handleChange} type='email' name='email' id="login-email" placeholder='Введите почту' required={true} className="form__input"/>
-                    {this.state.emailError && <div className="form__input-error">{this.state.emailError}</div>}
-                  </div>
-                  <div className="form__input-container" >
-                    <label htmlFor="login-password" className="form__input-label">Пароль</label>
-                    <input value={this.state.password} onChange={this.handleChange} type='password' name='password' id="login-password" placeholder='Введите пароль' required={true} className="form__input"/>
-                    {this.state.passwordError && <div className="form__input-error">{this.state.passwordError}</div>}
-                  </div>
-                </>
-              }
-            />
-          }
-        />
-      </>
+      <Popup
+        isOpened={this.props.isLoginPopupOpened}
+        close={this.props.close}
+        title='Вход'
+        children={
+          <PopupWithForm
+            changePopup={this.props.changePopup}
+            buttonText='Войти'
+            buttonEnabled={this.state.emailValid && this.state.passwordValid}
+            alternative='Зарегистрироваться'
+            onSubmit={this.handleSubmit}
+            formError={this.state.formError}
+            children={
+              <>
+                <div className="form__input-container" >
+                  <label htmlFor="login-email" className="form__input-label">Email</label>
+                  <input value={this.state.email} onChange={this.handleChange} type='email' name='email' id="login-email" placeholder='Введите почту' required={true} className="form__input"/>
+                  {this.state.emailError && <div className="form__input-error">{this.state.emailError}</div>}
+                </div>
+                <div className="form__input-container" >
+                  <label htmlFor="login-password" className="form__input-label">Пароль</label>
+                  <input value={this.state.password} onChange={this.handleChange} type='password' name='password' id="login-password" placeholder='Введите пароль' required={true} className="form__input"/>
+                  {this.state.passwordError && <div className="form__input-error">{this.state.passwordError}</div>}
+                </div>
+              </>
+            }
+          />
+        }
+      />
     );
   }
 }

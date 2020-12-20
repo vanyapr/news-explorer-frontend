@@ -460,7 +460,6 @@ class App extends React.PureComponent {
     const lastDigitOfRest = 1 * (keywordsRest.toString().slice(-1));
     let keywordsRestEnding = '';
 
-    console.log(lastDigitOfRest);
     switch (lastDigitOfRest) {
     case 1:
       keywordsRestEnding = `${keywordsRest}-му другому`;
@@ -495,9 +494,6 @@ class App extends React.PureComponent {
     const searchKeyword = this._readKeywordFromLocalStorage();
     // Мы не сможем корректно сохранить новость без ключевого слова, проверим чтр оно есть
     if (newsList && searchKeyword) {
-      console.log(newsList);
-      console.log(searchKeyword);
-
       this.setState({
         foundNews: newsList,
         searchString: searchKeyword,

@@ -54,12 +54,11 @@ class Utils {
 
   // Принимает объект, преобразует в формат апи
   convertToApiFormat(newsItem, searchString) {
-    console.log(newsItem);
     // Разобрали объект новости
     const { title, description, publishedAt, source, url, urlToImage } = newsItem;
 
     // Преобразуем в формат совместимый с апи
-    const result = {
+    return {
       keyword: searchString, // Строка поиска
       title,
       text: description,
@@ -68,9 +67,6 @@ class Utils {
       link: url,
       image: urlToImage,
     };
-
-    console.log(result);
-    return result;
   }
 
   // Принимает массив объектов, преобразует в формат приложения
