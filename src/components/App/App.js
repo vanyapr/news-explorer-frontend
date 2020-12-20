@@ -440,25 +440,38 @@ class App extends React.PureComponent {
     // Отсортировать массив по алфавиту
     const sortedUniqueKeywords = sortWordsByFrequency(keywords, uniqueKeywords);
 
-    // Посчитать длину массива чобы узнать сколько сохранено новостей
-    const lastDigitOfKeywordsCount = 1 * this.state.savedNewsList.length.toString().slice(-1);
+    function changeArticlesWord(wordsArray) {
+      // Переменная для слова "статей"
+      let articlesWord = '';
 
-    // Переменная для слова "статей"
-    let articlesWord = '';
+      // Считаем длину массива статей
+      const wordsCount = wordsArray.length;
 
-    // Рассчитываем окончание предложения
-    switch (lastDigitOfKeywordsCount) {
-    case 1:
-      articlesWord = 'сохранённая статья';
-      break;
-    case 2:
-    case 3:
-    case 4:
-      articlesWord = 'сохранённых статьи';
-      break;
-    default:
-      articlesWord = 'сохранённых статей';
+      // От 5 до 19 - будет слово "статей"
+      if (wordsCount > 4 && wordsCount < 21) {
+        articlesWord = 'сохранённых статей';
+      } else {
+        // Получаем последнюю цифру числа статей
+        const lastDigitOfKeywordsCount = 1 * wordsCount.toString().slice(-1);
+        // Рассчитываем окончание предложения
+        switch (lastDigitOfKeywordsCount) {
+        case 1:
+          articlesWord = 'сохранённая статья';
+          break;
+        case 2:
+        case 3:
+        case 4:
+          articlesWord = 'сохранённых статьи';
+          break;
+        default:
+          articlesWord = 'сохранённых статей';
+        }
+      }
+
+      return articlesWord;
     }
+
+    const articlesWord = changeArticlesWord(this.state.savedNewsList);
 
     // Статей/статьи/статья
     let keywordsList = '';
