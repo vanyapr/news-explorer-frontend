@@ -171,6 +171,41 @@ class App extends React.PureComponent {
     localStorage.removeItem('token');
   }
 
+  //FIXME:
+  // + когда выполнили поиск, записали новости в стейт переменную и в локалсторадж
+  // при монтировании компонента проверяем, есть ли в локалсторадже новости,
+  // если есть - записываем их в стейт переменную и показываем
+
+  // Записывает результаты поиска в локальное хранилище
+  _saveNewsToLocalStorage = (newsList, keyword) => {
+    // Записали результат поиска
+    localStorage.setItem('searchResult', JSON.stringify(newsList));
+    // Записали ключевое слово по которому искали
+    localStorage.setItem('searchKeyword', keyword);
+  }
+
+  // Читает результаты поиска из локального хранилища
+  _readNewsFromLocalStorage = () => {
+    // Прочитали результат поиска
+    const newsList = localStorage.getItem('searchResult');
+    // Преобразовали в JSON
+    return JSON.parse(newsList);
+  }
+
+  // Читает ключевое слово из локального хранилища
+  _readKeywordFromLocalStorage = () => {
+    // Прочитали ключевое слово
+    return localStorage.getItem('searchKeyword');
+  }
+
+  // Удаляет новости и ключевое слово из локального хранилища
+  _deleteNewsFromLocalStorage = () => {
+    // Удалили результат поиска
+    localStorage.removeItem('searchResult');
+    // Удалили ключевое слово по которому искали
+    localStorage.removeItem('searchKeyword');
+  }
+
   // Закрывает все окна
   closeAllPopups = () => {
     this.setState({
@@ -223,7 +258,10 @@ class App extends React.PureComponent {
     }, () => {
       NewsApi.getNewsBySearchString(searchString)
         .then((news) => {
+          // Ели найдено ноль новостей
           if (news.totalResults === 0) {
+            // Очистили результаты поиска в локальном хранилище
+            this._deleteNewsFromLocalStorage();
             // Показали ошибку поиска
             this.setState({
               isLoadSpinnerVisible: false,
@@ -234,10 +272,14 @@ class App extends React.PureComponent {
               searchErrorText: 'К сожалению по вашему запросу ничего не найдено.',
             });
           } else {
-            // Скрыли ошибку поиска
+            // Если найдено больше нуля новостей
+            // Записали в локальное хранилище данные
+            this._saveNewsToLocalStorage(news.articles, searchString);
+            // Записали данные в стейт
             this.setState({
               // Если новости найдены, спиннер можно скрыть
               isLoadSpinnerVisible: false,
+              // Скрыли ошибку поиска
               isSearchErrorVisible: false,
               isShowMoreButtonVisible: true,
               searchErrorHeading: '',
@@ -447,9 +489,31 @@ class App extends React.PureComponent {
     });
   }
 
+  // Отображает сохраненные в локальном хранилище новости если они сохранены корректно
+  _showSavedSearchResult = () => {
+    const newsList = this._readNewsFromLocalStorage();
+    const searchKeyword = this._readKeywordFromLocalStorage();
+    // Мы не сможем корректно сохранить новость без ключевого слова, проверим чтр оно есть
+    if (newsList && searchKeyword) {
+      console.log(newsList);
+      console.log(searchKeyword);
+
+      this.setState({
+        foundNews: newsList,
+        searchString: searchKeyword,
+        isSearchResultVisible: true,
+        isShowMoreButtonActive: true,
+        isShowMoreButtonVisible: true,
+      }, () => {
+        this.showMoreNews();
+      });
+    }
+  }
+
   componentDidMount() {
     // Проверяем токен юзера при монтировании компонента
     this._checkUserToken();
+    this._showSavedSearchResult();
   }
 
   componentDidUpdate(prevProps) {
