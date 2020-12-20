@@ -405,16 +405,40 @@ class App extends React.PureComponent {
       return array.indexOf(item) === index;
     });
 
-    // Отсортировать массив по алфавиту
-    const sortedUniqueKeywords = uniqueKeywords.sort((a, b) => {
-      if (a < b) {
+    // Сортирует массив по числу повторений слова, и по алфавиту если повторений поровну
+    function sortWordsByFrequency(keywords, uniqueKeywords) {
+      // Пройти по массиву и записать значения в объект
+      const data = {};
+      // Посчитать для каждого слова число повторений в массиве
+      keywords.forEach((item) => {
+        // Для каждого слова записать в объект число повторений +1
+        data[item] = data[item] ? data[item] + 1 : 1;
+      });
+
+      // Пройти по списку уникальных слов и упорядочить его
+      const sortedWords = uniqueKeywords.sort((a, b) => {
+        // Слова, которых меньше перемещаем в конец
+        if (data[a] < data[b]) {
+          return 1;
+        }
+        // Если длина слов одинаковая, сравним сами слова
+        if (data[a] === data[b]) {
+          if (a > b) {
+            return 1;
+          } else {
+            return -1;
+          }
+        }
+        // Слова которых больше перемещаем в начало
         return -1;
-      }
-      if (a > b) {
-        return 1;
-      }
-      return 0;
-    });
+      });
+
+      // Вернули отсортированные слова
+      return sortedWords;
+    }
+
+    // Отсортировать массив по алфавиту
+    const sortedUniqueKeywords = sortWordsByFrequency(keywords, uniqueKeywords);
 
     // Посчитать длину массива чобы узнать сколько сохранено новостей
     const lastDigitOfKeywordsCount = 1 * this.state.savedNewsList.length.toString().slice(-1);
