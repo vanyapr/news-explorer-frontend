@@ -1,27 +1,24 @@
 import React from 'react';
 import './PopupWithForm.css';
 
-class PopupWithForm extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.isSubmitDisabled = false;
-    this.formError = 'Такой пользователь уже есть';
-  }
-
+class PopupWithForm extends React.PureComponent {
   handleLinkClick = (event) => {
     event.preventDefault();
     this.props.changePopup();
-    console.log('Нажата ссылка смены попапа');
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.props.onSubmit(event.target);
   }
 
   render() {
     return (
       <>
-        <form className="form">
+        <form onSubmit={this.handleSubmit} className="form" noValidate>
           {this.props.children}
-          {this.formError && <div className="form__form-error">{this.formError}</div>}
-          <button type="submit" className={this.isSubmitDisabled ? 'form__submit-button form__submit-button_state_disabled' : 'form__submit-button'}>{this.props.buttonText}</button>
+          {this.props.formError && <div className="form__form-error">{this.props.formError}</div>}
+          <button type="submit" className={this.props.buttonEnabled ? 'form__submit-button' : 'form__submit-button  form__submit-button_state_disabled'} disabled={!this.props.buttonEnabled}>{this.props.buttonText}</button>
         </form>
         <p className="form__variants">или <a onClick={this.handleLinkClick} className='form__link'>{this.props.alternative}</a></p>
       </>

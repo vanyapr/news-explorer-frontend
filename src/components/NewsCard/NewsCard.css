@@ -7,7 +7,7 @@
   position: relative;
   border-radius: 16px;
   z-index: 1;
-  max-height: 576px;
+  max-height: 558px;
   min-height: 420px;
   /* На случай, если вендорные префиксы не поддерживаются*/
   overflow: hidden;
@@ -22,12 +22,17 @@
   order: -2;
   margin: 0;
   font-size: 0;
+  /* Добавим чёрный фон на случай, если картинки нет */
+  background: #000;
+  height: 272px;
 }
 
 .card__image {
   border-radius: 16px 16px 0 0;
   max-width: 100%;
   width: 100%;
+  object-fit: cover;
+  height: 272px;
 }
 
 
@@ -51,7 +56,7 @@
   /*У нас высота одного элемента зависит от высоты другого, единственный способ - так*/
   /**!*/
   display: -webkit-box;
-  -webkit-line-clamp: 7;
+  -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
 }
 
@@ -128,6 +133,14 @@
     min-height: 420px;
   }
 
+  .card__image {
+    height: 272px;
+  }
+
+  .card__image-container {
+    height: 272px;
+  }
+
   .card__name {
     font-size: 22px;
     line-height: 24px;
@@ -161,5 +174,23 @@
 @media screen and (max-width: 767px) {
   .card__name {
     line-height: 26px;
+  }
+
+  .card__image-container {
+    height: 150px;
+  }
+
+  .card__image {
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .card__image {
+    height: 196px;
+  }
+
+  .card__image-container {
+    height: 196px;
   }
 }

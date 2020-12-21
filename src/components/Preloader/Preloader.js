@@ -1,7 +1,7 @@
 import React from 'react';
 import './Preloader.css';
 
-class Preloader extends React.Component {
+class Preloader extends React.PureComponent {
   render() {
     return (
       <div className="preloader">

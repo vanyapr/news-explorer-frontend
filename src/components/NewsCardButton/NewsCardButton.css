@@ -23,6 +23,10 @@
   background-image: url("../../images/bookmark-icon-active.svg");
 }
 
+.card__button_type_bookmark_state_active:hover {
+  background-image: url("../../images/bookmark-icon-active.svg");
+}
+
 .card__button_type_delete {
   background-image: url("../../images/icon-delete-hover.svg");
 }

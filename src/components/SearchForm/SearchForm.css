@@ -12,7 +12,7 @@ only screen and (min-resolution: 2dppx) {
 }
 
 .search-form__container {
-  max-width: 1282px;
+  max-width: 658px;
   padding: 160px 25px;
   margin: 0 auto;
   box-sizing: border-box;
