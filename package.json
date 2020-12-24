@@ -20,7 +20,8 @@
     "lint": "eslint --fix --ext .js,.jsx .",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && scp -r ./build/* snowflax@178.154.227.73:/home/snowflax/news-explorer-frontend"
   },
   "eslintConfig": {
     "extends": [
